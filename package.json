@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
+  "description": "The open-source, community-driven online Y Combinator \u2014 meet builders, form teams, and ship startups together with AI as a co-builder.",
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "main": "server.js",
+  "name": "cohort",
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js",
+    "test": "node --test test/api.test.js",
+    "demo:mcp": "node scripts/run-mcp-session.cjs"
+  },
+  "version": "0.1.0"
+}
