@@ -1,3 +1,21 @@
+<style>
+.commons-bar{font:inherit;padding:1em 0;line-height:2}
+.commons-bar a,.commons-bar span{margin-right:1rem}
+.commons-bar span{font-weight:700}
+.commons-footer{margin-top:3em;font:inherit;line-height:1.6}
+</style>
+<nav class="commons-bar" aria-label="Aurora Commons sites">
+  <a href="https://auroracommons.github.io/auroracommons/">Aurora Commons</a>
+  <a href="https://auroracommons.github.io/auroracommons/foundations.html">Foundations</a>
+  <a href="https://auroracommons.github.io/ground/">Ground</a>
+  <a href="https://auroracommons.github.io/still/">Still</a>
+  <a href="https://auroracommons.github.io/atlas/">Atlas</a>
+  <span aria-current="page">Cohort</span>
+  <a href="https://auroracommons.github.io/graph/">Graph</a>
+  <a href="https://auroracommons.github.io/machine/">Machine</a>
+  <a href="https://auroracommons.github.io/lumen/">Lumen</a>
+</nav>
+
 # Cohort
 
 **Find your cohort. Build your company.**
@@ -212,3 +230,12 @@ MIT. See [LICENSE](LICENSE). Copyright (c) 2026 Cohort contributors.
 the OpenAI-compatible chat completions convention adopted by
 Google, Groq and OpenRouter, and the Y Combinator ethos of
 *make something people want*, which this project tries to give away for free.
+
+<p>The layer below: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
+<p>The layer above: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
+<p>The research under this layer: <a href="https://auroracommons.github.io/auroracommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
+<footer class="commons-footer">
+  <p>One rule: raise the floor beneath everyone.</p>
+  <p>Advised by Groundskeeper.</p>
+  <p><a href="https://www.linkedin.com/company/aurora-commons-io/">Aurora Commons on LinkedIn</a></p>
+</footer>
