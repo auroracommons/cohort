@@ -1,6 +1,6 @@
 # The 110 percent checklist: Cohort
 
-Bedrock alignment: this repo serves Layer 3: Belonging in the Bedrock needs map, aligned October 15, 2026.
+Ascent alignment: this repo serves Layer 3: Belonging in the Ascent needs map, aligned October 15, 2026.
 
 State as of October 15, 2026. Every line carries its evidence; a line without evidence does not count as done. This file is maintained by the daily evolution pass.
 
@@ -17,7 +17,7 @@ State as of October 15, 2026. Every line carries its evidence; a line without ev
 - [x] Repo description and topics set (description states the MCP room claim; topics: ai-agents, collaboration, education, mcp, model-context-protocol, verified by API read back October 15, 2026)
 - [x] Good first issues open: #1 add a REST API test, #2 record a demo session and write the walkthrough (both labeled good first issue, sized in hours)
 - [x] Tagged release: v0.1.0, first verified baseline (published, marked Latest)
-- [x] Live demo: https://bedrockcommons.github.io/cohort/ (HTTP 200 verified October 15, 2026; the Pages landing renders the project README until a dedicated demo page is pushed, as recorded in the portfolio tracker)
+- [x] Live demo: https://auroracommons.github.io/cohort/ (HTTP 200 verified October 15, 2026; the Pages landing renders the project README until a dedicated demo page is pushed, as recorded in the portfolio tracker)
 
 ## Verification baseline (October 15, 2026)
 - `npm test` from a clean state (no local data.json, the same state CI starts from): 7 of 7 tests pass locally (6 REST API tests plus 1 MCP protocol test: handshake, tool list with output schemas, and real tool calls)

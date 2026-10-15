@@ -4,7 +4,7 @@
 
 Describe what changed in plain terms.
 
-Bedrock layer it serves: (this repo serves Layer 3, Belonging. If your change serves a different layer, name it and say why.)
+Ascent layer it serves: (this repo serves Layer 3, Belonging. If your change serves a different layer, name it and say why.)
 
 ## Evidence
 

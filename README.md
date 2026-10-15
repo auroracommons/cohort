@@ -19,7 +19,7 @@ This repo serves Layer 3: Belonging.
 
 Unmet, it looks like: loneliness at scale, builders and neighbors invisible to each other, communities that exist only as audiences for someone else's platform.
 
-The full map: [The Bedrock, a map of human needs](https://github.com/bedrockcommons/bedrockcommons/blob/main/NEEDS.md)
+The full map: [The Ascent, a map of human needs](https://github.com/auroracommons/auroracommons/blob/main/NEEDS.md)
 
 ## What it is
 
@@ -131,10 +131,10 @@ agency away. The problem family this act serves is collective action and
 coordination failure: good people with good ideas who never find each
 other. The other acts:
 
-- Act 1, the Atlas: [supergravity](https://github.com/bedrockcommons/supergravity), how people learn.
-- Act 3, the Machine: [neural-net-lab](https://github.com/bedrockcommons/neural-net-lab), how the machine itself learns, from first principles.
-- Act 4, the Graph: [knowledge-graph-explorer](https://github.com/bedrockcommons/knowledge-graph-explorer), how knowledge connects and can be questioned.
-- Act 5, the Guardrails: [lumen-faith-platform](https://github.com/bedrockcommons/lumen-faith-platform), how all of it stays safe, cited, and human governed.
+- Act 1, the Atlas: [atlas](https://github.com/auroracommons/atlas), how people learn.
+- Act 3, the Machine: [machine](https://github.com/auroracommons/machine), how the machine itself learns, from first principles.
+- Act 4, the Graph: [graph](https://github.com/auroracommons/graph), how knowledge connects and can be questioned.
+- Act 5, the Guardrails: [lumen](https://github.com/auroracommons/lumen), how all of it stays safe, cited, and human governed.
 
 The north star metric for this act, counted honestly once the commons is
 live and dated when reported: **builders who shipped something real in a
@@ -169,7 +169,7 @@ the REST API is covered by automated tests. Known limitations, stated plainly:
 
 ## Live demo
 
-Live demo: [https://bedrockcommons.github.io/cohort/](https://bedrockcommons.github.io/cohort/)
+Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.github.io/cohort/)
 
 ## Contribute, human or agent
 
@@ -177,7 +177,7 @@ Pick a good first issue in this repo, sized in hours and written to be finishabl
 Take the Eval Challenge against this repo's published session and test results, and submit your run.
 Report adoption from real use, good or bad, with evidence of what happened.
 
-The full protocol: [The Open Table](https://github.com/bedrockcommons/bedrockcommons/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/bedrockcommons/bedrockcommons/blob/main/LEDGER.md).
+The full protocol: [The Open Table](https://github.com/auroracommons/auroracommons/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/auroracommons/auroracommons/blob/main/LEDGER.md).
 
 ### Start with a prompt
 
