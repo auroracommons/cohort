@@ -41,16 +41,16 @@
 </head>
 <body>
 <a class="skip-link" href="#content">Skip to the content</a>
-<nav class="commons-bar" aria-label="Aurora Commons sites">
-  <a class="wordmark" href="https://auroracommons.github.io/auroracommons/">Aurora Commons</a>
-  <a href="https://auroracommons.github.io/auroracommons/foundations.html">Foundations</a>
-  <a href="https://auroracommons.github.io/ground/">Ground</a>
-  <a href="https://auroracommons.github.io/still/">Still</a>
-  <a href="https://auroracommons.github.io/atlas/">Atlas</a>
+<nav class="commons-bar" aria-label="Topsoil Commons sites">
+  <a class="wordmark" href="https://topsoilcommons.github.io/topsoilcommons/"><svg class="bar-mark" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false" style="flex:none;align-self:center;margin-right:7px"><g fill="currentColor"><rect x="4" y="2.5" width="16" height="2"/><rect x="4" y="5.5" width="16" height="2"/><rect x="4" y="8.5" width="16" height="2"/><rect x="4" y="11.5" width="4.5" height="8"/><rect x="15.5" y="11.5" width="4.5" height="8"/><rect x="2" y="20.5" width="20" height="2.2"/></g></svg>Topsoil Commons</a>
+  <a href="https://topsoilcommons.github.io/topsoilcommons/foundations.html">Foundations</a>
+  <a href="https://topsoilcommons.github.io/ground/">Ground</a>
+  <a href="https://topsoilcommons.github.io/still/">Still</a>
+  <a href="https://topsoilcommons.github.io/atlas/">Atlas</a>
   <span aria-current="page">Cohort (you are here)</span>
-  <a href="https://auroracommons.github.io/graph/">Graph</a>
-  <a href="https://auroracommons.github.io/machine/">Machine</a>
-  <a href="https://auroracommons.github.io/lumen/">Lumen</a>
+  <a href="https://topsoilcommons.github.io/graph/">Graph</a>
+  <a href="https://topsoilcommons.github.io/machine/">Machine</a>
+  <a href="https://topsoilcommons.github.io/lumen/">Lumen</a>
 </nav>
   <nav class="nav">
     <div class="nav-inner">
@@ -74,7 +74,7 @@
     <section class="view" id="view-home">
       <div class="hero">
         <h1>Cohort</h1>
-        <p>Cohort is one of the seven tools of Aurora Commons. It serves Layer 3, belonging.</p>
+        <p>Cohort is one of the seven tools of Topsoil Commons. It serves Layer 3, belonging.</p>
         <p class="tagline">Learn. Build. Make things together.</p>
         <p class="subline">
           First step: click Browse projects below, pick a project that fits, and open its workspace to meet the builders there.
@@ -231,18 +231,18 @@
 <h2>For agents and builders</h2>
 <p>Cohort ships an MCP server in the file mcp-server.js. MCP is the Model Context Protocol. The server is a real client of the workspace API, never a direct reader of the data file: it reads projects through the REST API and joins rooms over WebSocket under its own handle, agent by default, so everything it does is visible in the room. It offers seven tools: list and get projects, read full room state (project, shared document, recent chat, presence) in one call, post chat, update the document, create a project, and upvote. Every tool declares an output schema and returns structured content, and errors come back with machine readable codes.</p>
 <p>The server is the file server.js, Express plus the ws WebSocket library, and state lives in a single data.json file next to the server. The automated suite is npm test, seven tests, and it drives the MCP server over stdio through a real handshake and tool calls. A recorded session transcript lives at test/evidence/mcp-session.json, and npm run demo:mcp records a fresh one while the server runs.</p>
-<p>Below this layer: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
-<p>Above this layer: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
-<p>The research under this layer: <a href="https://auroracommons.github.io/auroracommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
+<p>Below this layer: <a href="https://topsoilcommons.github.io/atlas/">Atlas, learning</a></p>
+<p>Above this layer: <a href="https://topsoilcommons.github.io/graph/">Graph, shared truth</a></p>
+<p>The research under this layer: <a href="https://topsoilcommons.github.io/topsoilcommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
 <p>Built on Atlas: learning.</p>
 <p>Unlocks the ability to contribute.</p>
 <footer class="commons-footer">
-  <p><a href="https://auroracommons.github.io/auroracommons/">Back to the home page</a></p>
-  <p>Aurora Commons addresses the hierarchy of human needs through open source.</p>
+  <p><a href="https://topsoilcommons.github.io/topsoilcommons/">Back to the home page</a></p>
+  <p>Topsoil Commons addresses the hierarchy of human needs through open source.</p>
   <p>Motto: Stand on the shoulders of giants.</p>
   <p>One rule: raise the floor beneath everyone.</p>
   <p>Advised by Groundskeeper.</p>
-  <p><a href="https://www.linkedin.com/company/aurora-commons-io/">Aurora Commons on LinkedIn</a></p>
+  <p><a href="https://www.linkedin.com/company/topsoil-commons/">Topsoil Commons on LinkedIn</a></p>
 </footer>
 </body>
 </html>

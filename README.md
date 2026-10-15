@@ -10,23 +10,23 @@
 [id]{scroll-margin-top:72px}
 </style>
 <a class="skip-link" href="#cohort">Skip to the content</a>
-<nav class="commons-bar" aria-label="Aurora Commons sites">
-  <a class="wordmark" href="https://auroracommons.github.io/auroracommons/">Aurora Commons</a>
-  <a href="https://auroracommons.github.io/auroracommons/foundations.html">Foundations</a>
-  <a href="https://auroracommons.github.io/ground/">Ground</a>
-  <a href="https://auroracommons.github.io/still/">Still</a>
-  <a href="https://auroracommons.github.io/atlas/">Atlas</a>
+<nav class="commons-bar" aria-label="Topsoil Commons sites">
+  <a class="wordmark" href="https://topsoilcommons.github.io/topsoilcommons/"><svg class="bar-mark" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false" style="flex:none;align-self:center;margin-right:7px"><g fill="currentColor"><rect x="4" y="2.5" width="16" height="2"/><rect x="4" y="5.5" width="16" height="2"/><rect x="4" y="8.5" width="16" height="2"/><rect x="4" y="11.5" width="4.5" height="8"/><rect x="15.5" y="11.5" width="4.5" height="8"/><rect x="2" y="20.5" width="20" height="2.2"/></g></svg>Topsoil Commons</a>
+  <a href="https://topsoilcommons.github.io/topsoilcommons/foundations.html">Foundations</a>
+  <a href="https://topsoilcommons.github.io/ground/">Ground</a>
+  <a href="https://topsoilcommons.github.io/still/">Still</a>
+  <a href="https://topsoilcommons.github.io/atlas/">Atlas</a>
   <span aria-current="page">Cohort (you are here)</span>
-  <a href="https://auroracommons.github.io/graph/">Graph</a>
-  <a href="https://auroracommons.github.io/machine/">Machine</a>
-  <a href="https://auroracommons.github.io/lumen/">Lumen</a>
+  <a href="https://topsoilcommons.github.io/graph/">Graph</a>
+  <a href="https://topsoilcommons.github.io/machine/">Machine</a>
+  <a href="https://topsoilcommons.github.io/lumen/">Lumen</a>
 </nav>
 
 # Cohort
 
 **Find your cohort. Build your company.**
 
-Cohort is one of the seven tools of Aurora Commons. It serves Layer 3, belonging.
+Cohort is one of the seven tools of Topsoil Commons. It serves Layer 3, belonging.
 
 First step: click Browse projects in the app, pick a project that fits, and open its workspace to meet the builders there. To run the app on your own machine, follow the quick start in the section for agents and builders at the end of this page.
 
@@ -50,7 +50,7 @@ This repo serves Layer 3: Belonging.
 
 Unmet, it looks like: loneliness at scale, builders and neighbors invisible to each other, communities that exist only as audiences for someone else's platform.
 
-The full map: [The Ascent, a map of human needs](https://github.com/auroracommons/auroracommons/blob/main/NEEDS.md)
+The full map: [The Ascent, a map of human needs](https://github.com/topsoilcommons/topsoilcommons/blob/main/NEEDS.md)
 
 ## What it is
 
@@ -93,10 +93,10 @@ agency away. The problem family this act serves is collective action and
 coordination failure: good people with good ideas who never find each
 other. The other acts:
 
-- Act 1, the Atlas: [atlas](https://github.com/auroracommons/atlas), how people learn.
-- Act 3, the Machine: [machine](https://github.com/auroracommons/machine), how the machine itself learns, from first principles.
-- Act 4, the Graph: [graph](https://github.com/auroracommons/graph), how knowledge connects and can be questioned.
-- Act 5, the Guardrails: [lumen](https://github.com/auroracommons/lumen), how all of it stays safe, cited, and human governed.
+- Act 1, the Atlas: [atlas](https://github.com/topsoilcommons/atlas), how people learn.
+- Act 3, the Machine: [machine](https://github.com/topsoilcommons/machine), how the machine itself learns, from first principles.
+- Act 4, the Graph: [graph](https://github.com/topsoilcommons/graph), how knowledge connects and can be questioned.
+- Act 5, the Guardrails: [lumen](https://github.com/topsoilcommons/lumen), how all of it stays safe, cited, and human governed.
 
 The north star metric for this act, counted honestly once the commons is
 live and dated when reported: **builders who shipped something real in a
@@ -107,7 +107,7 @@ contributors, are in [the guide to taking part](COLLABORATE.md) and
 
 ## Live demo
 
-Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.github.io/cohort/)
+Live demo: [https://topsoilcommons.github.io/cohort/](https://topsoilcommons.github.io/cohort/)
 
 That page shows this README as a web page. The working app is not hosted there. To use the app, follow the quick start in the section for agents and builders below and open the site it starts.
 
@@ -222,11 +222,11 @@ The limits, stated plainly:
 
 ## Contribute, human or agent
 
-Pick a [good first issue](https://github.com/auroracommons/cohort/issues) in this repo, sized in hours and written to be finishable by a newcomer.
+Pick a [good first issue](https://github.com/topsoilcommons/cohort/issues) in this repo, sized in hours and written to be finishable by a newcomer.
 Take the Eval Challenge against this repo's published session and test results, and submit your run.
 Report adoption from real use, good or bad, with evidence of what happened.
 
-The full protocol: [The Open Table](https://github.com/auroracommons/auroracommons/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/auroracommons/auroracommons/blob/main/LEDGER.md).
+The full protocol: [The Open Table](https://github.com/topsoilcommons/topsoilcommons/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/topsoilcommons/topsoilcommons/blob/main/LEDGER.md).
 
 ### Start with a prompt
 
@@ -260,17 +260,17 @@ the OpenAI-compatible chat completions convention adopted by
 Google, Groq and OpenRouter, and the Y Combinator ethos of
 *make something people want*, which this project tries to give away for free.
 
-<p>Below this layer: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
-<p>Above this layer: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
-<p>The research under this layer: <a href="https://auroracommons.github.io/auroracommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
+<p>Below this layer: <a href="https://topsoilcommons.github.io/atlas/">Atlas, learning</a></p>
+<p>Above this layer: <a href="https://topsoilcommons.github.io/graph/">Graph, shared truth</a></p>
+<p>The research under this layer: <a href="https://topsoilcommons.github.io/topsoilcommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
 Built on Atlas: learning.
 Unlocks the ability to contribute.
 <footer class="commons-footer">
-  <p><a href="https://auroracommons.github.io/auroracommons/">Back to the home page</a></p>
-  <p>Aurora Commons addresses the hierarchy of human needs through open source.</p>
+  <p><a href="https://topsoilcommons.github.io/topsoilcommons/">Back to the home page</a></p>
+  <p>Topsoil Commons addresses the hierarchy of human needs through open source.</p>
   <p>Motto: Stand on the shoulders of giants.</p>
   <p>One rule: raise the floor beneath everyone.</p>
-  <p>Its record is filed in <a href="https://auroracommons.github.io/index/">the Index</a>.</p>
+  <p>Its record is filed in <a href="https://topsoilcommons.github.io/index/">the Index</a>.</p>
   <p>Advised by Groundskeeper.</p>
-  <p><a href="https://www.linkedin.com/company/aurora-commons-io/">Aurora Commons on LinkedIn</a></p>
+  <p><a href="https://www.linkedin.com/company/topsoil-commons/">Topsoil Commons on LinkedIn</a></p>
 </footer>
