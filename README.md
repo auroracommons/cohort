@@ -234,6 +234,8 @@ Google, Groq and OpenRouter, and the Y Combinator ethos of
 <p>The layer below: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
 <p>The layer above: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
 <p>The research under this layer: <a href="https://auroracommons.github.io/auroracommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
+Built on Atlas: learning.
+Unlocks the ability to contribute.
 <footer class="commons-footer">
   <p>Aurora Commons addresses the hierarchy of human needs through open source.</p>
   <p>Motto: Stand on the shoulders of giants.</p>
