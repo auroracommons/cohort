@@ -1,5 +1,7 @@
 # The 110 percent checklist: Cohort
 
+Bedrock alignment: this repo serves Layer 3: Belonging in the Bedrock needs map, aligned October 15, 2026.
+
 State as of October 15, 2026. Every line carries its evidence; a line without evidence does not count as done. This file is maintained by the daily evolution pass.
 
 ## 100 percent: completeness

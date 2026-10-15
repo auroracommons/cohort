@@ -11,6 +11,16 @@ applications, no gatekeepers, no equity taken: the accelerator is the
 community itself, and the whole thing is MIT-licensed so anyone can run,
 fork, and improve it.
 
+## The need
+
+This repo serves Layer 3: Belonging.
+
+"People who know your name. A room where your work is seen. A first believer when you are starting from nothing." Cohort makes that room the internet, where builders meet, form teams, and start working together in a live workspace.
+
+Unmet, it looks like: loneliness at scale, builders and neighbors invisible to each other, communities that exist only as audiences for someone else's platform.
+
+The full map: [The Bedrock, a map of human needs](https://github.com/jthomas48896f/jthomas48896f/blob/main/NEEDS.md)
+
 ## Features
 
 - **Projects board:** pitch an idea in one breath, tag the roles you're
