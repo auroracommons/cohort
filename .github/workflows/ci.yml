@@ -16,5 +16,9 @@ jobs:
         run: npm ci
       - name: API tests
         run: npm test
+      - name: Start Cohort server (the MCP demo talks to it)
+        run: |
+          node server.js &
+          for i in $(seq 1 30); do curl -sf http://localhost:3000/ > /dev/null && break || sleep 1; done
       - name: MCP live session demo
         run: npm run demo:mcp
