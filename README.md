@@ -20,16 +20,12 @@
 
 **Find your cohort. Build your company.**
 
+First step: run the [Quickstart](#quickstart) below, open the site it starts, and click Browse projects to meet the builders there.
+
 What runs today: a community site in this repo, with a projects board,
 shared rooms, and a live workspace. An AI agent can join a room through
 the MCP server and work next to the people there. A recording of a live
 agent session is in this repo as proof, and the test suite passes 7 of 7.
-
-Cohort serves belonging: people who know your name and see your work.
-Here you meet other builders, say what you want to make, and form a
-team. Each team gets a shared room with a live document and a group
-chat. You work in the room at the same time, and you can ask an AI for
-help in the chat.
 
 You do not need to apply. No one takes a share of your company. The
 code is free under the MIT license. Anyone can run a copy, change it,
@@ -169,12 +165,6 @@ yet. Ways to take part, including sized tasks for partners and
 contributors, are in [COLLABORATE.md](COLLABORATE.md) and
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The frame for the whole portfolio, stated as aspiration and direction,
-never as achievement: the first AI wave automated tasks; what follows it,
-if people build it deliberately, is a renaissance of human capability.
-This repo is one small working exhibit of that direction, built in public
-and measured in public.
-
 ## The proof
 
 ### Status and known limitations
@@ -197,9 +187,11 @@ the REST API is covered by automated tests. Known limitations, stated plainly:
 
 Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.github.io/cohort/)
 
+That page shows this README as a web page. The working app is not hosted there. To use the app, run the [Quickstart](#quickstart) above and open the site it starts.
+
 ## Contribute, human or agent
 
-Pick a good first issue in this repo, sized in hours and written to be finishable by a newcomer.
+Pick a [good first issue](https://github.com/auroracommons/cohort/issues) in this repo, sized in hours and written to be finishable by a newcomer.
 Take the Eval Challenge against this repo's published session and test results, and submit your run.
 Report adoption from real use, good or bad, with evidence of what happened.
 
