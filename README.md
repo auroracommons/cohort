@@ -19,9 +19,11 @@ This repo serves Layer 3: Belonging.
 
 Unmet, it looks like: loneliness at scale, builders and neighbors invisible to each other, communities that exist only as audiences for someone else's platform.
 
-The full map: [The Bedrock, a map of human needs](https://github.com/jthomas48896f/jthomas48896f/blob/main/NEEDS.md)
+The full map: [The Bedrock, a map of human needs](https://github.com/thomassupergravity/thomassupergravity/blob/main/NEEDS.md)
 
-## Features
+## What it is
+
+### Features
 
 - **Projects board:** pitch an idea in one breath, tag the roles you're
   looking for, and let the community find you.
@@ -34,7 +36,7 @@ The full map: [The Bedrock, a map of human needs](https://github.com/jthomas4889
 - **Live Hacker News feed:** the top 30 stories, proxied and cached
   server-side, so the community stays plugged into the ecosystem.
 
-## Quickstart
+### Quickstart
 
 ```bash
 npm install
@@ -46,7 +48,7 @@ Then open [http://localhost:3000](http://localhost:3000).
 State lives in a single `data.json` file next to the server (auto-created and
 seeded with demo projects on first boot; gitignored).
 
-## Architecture
+### Architecture
 
 The whole server is one file, `server.js` (about 600 lines, Express plus the
 `ws` WebSocket library), and that is a deliberate choice: the project is small
@@ -66,7 +68,7 @@ single-instance storage: run one server process and it is exactly right;
 run five and it is exactly wrong. For a community tool at this scale, that
 trade is stated rather than hidden.
 
-## Agents welcome: the MCP server
+### Agents welcome: the MCP server
 
 Cohort ships an MCP server (`mcp-server.js`) that lets an external AI agent
 work in a room alongside the humans. It is a real client of the workspace,
@@ -88,23 +90,7 @@ node server.js          # in one terminal
 npm run demo:mcp        # records a fresh session transcript
 ```
 
-## Status and known limitations
-
-Working and verified: the server boots clean, the projects API returns the
-seeded board, workspaces sync in real time, the AI co-builder works with
-any of the providers below, the MCP server passes its protocol tests, and
-the REST API is covered by automated tests. Known limitations, stated plainly:
-
-- **No accounts or auth.** Handles are self claimed. Fine for an open
-  community demo, not fine for anything private.
-- **Document sync is last write wins.** Two people typing in the same
-  paragraph at the same moment can overwrite each other. A CRDT editor is
-  the first item on the roadmap.
-- **Single instance persistence.** `data.json` will not survive a
-  multi-instance host. A real database is the obvious next step when a
-  deployment outgrows one process.
-
-## Bring your own AI key
+### Bring your own AI key
 
 Cohort never stores your AI key on the server. It lives in your browser's
 localStorage and is forwarded only with your own `@ai` requests, used
@@ -120,7 +106,7 @@ in the top nav.
 
 Any OpenAI-compatible endpoint also works via the **Custom base URL** provider.
 
-## Roadmap
+### Roadmap
 
 - **Agent task history in room state (planned).** Let an agent see what it
   and other agents already did in a room, so multi session work has memory.
@@ -137,7 +123,7 @@ Any OpenAI-compatible endpoint also works via the **Custom base URL** provider.
 - **Demo days:** scheduled community showcases with live voting.
 - **Age-gated tracks:** a safe, moderated track for young builders.
 
-## The larger story
+### The larger story
 
 Cohort is Act 2, the Commons, in a five part body of work built on one
 thesis: technology should increase human capability without taking human
@@ -145,10 +131,10 @@ agency away. The problem family this act serves is collective action and
 coordination failure: good people with good ideas who never find each
 other. The other acts:
 
-- Act 1, the Atlas: [supergravity](https://github.com/jthomas48896f/supergravity), how people learn.
-- Act 3, the Machine: [neural-net-lab](https://github.com/jthomas48896f/neural-net-lab), how the machine itself learns, from first principles.
-- Act 4, the Graph: [knowledge-graph-explorer](https://github.com/jthomas48896f/knowledge-graph-explorer), how knowledge connects and can be questioned.
-- Act 5, the Guardrails: [lumen-faith-platform](https://github.com/jthomas48896f/lumen-faith-platform), how all of it stays safe, cited, and human governed.
+- Act 1, the Atlas: [supergravity](https://github.com/thomassupergravity/supergravity), how people learn.
+- Act 3, the Machine: [neural-net-lab](https://github.com/thomassupergravity/neural-net-lab), how the machine itself learns, from first principles.
+- Act 4, the Graph: [knowledge-graph-explorer](https://github.com/thomassupergravity/knowledge-graph-explorer), how knowledge connects and can be questioned.
+- Act 5, the Guardrails: [lumen-faith-platform](https://github.com/thomassupergravity/lumen-faith-platform), how all of it stays safe, cited, and human governed.
 
 The north star metric for this act, counted honestly once the commons is
 live and dated when reported: **builders who shipped something real in a
@@ -163,13 +149,55 @@ if people build it deliberately, is a renaissance of human capability.
 This repo is one small working exhibit of that direction, built in public
 and measured in public.
 
+## The proof
+
+### Status and known limitations
+
+Working and verified: the server boots clean, the projects API returns the
+seeded board, workspaces sync in real time, the AI co-builder works with
+any of the providers below, the MCP server passes its protocol tests, and
+the REST API is covered by automated tests. Known limitations, stated plainly:
+
+- **No accounts or auth.** Handles are self claimed. Fine for an open
+  community demo, not fine for anything private.
+- **Document sync is last write wins.** Two people typing in the same
+  paragraph at the same moment can overwrite each other. A CRDT editor is
+  the first item on the roadmap.
+- **Single instance persistence.** `data.json` will not survive a
+  multi-instance host. A real database is the obvious next step when a
+  deployment outgrows one process.
+
+## Live demo
+
+Live demo: [https://thomassupergravity.github.io/cohort/](https://thomassupergravity.github.io/cohort/)
+
 ## Contribute, human or agent
 
 Pick a good first issue in this repo, sized in hours and written to be finishable by a newcomer.
 Take the Eval Challenge against this repo's published session and test results, and submit your run.
 Report adoption from real use, good or bad, with evidence of what happened.
 
-The full protocol: [The Open Table](https://github.com/jthomas48896f/jthomas48896f/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/jthomas48896f/jthomas48896f/blob/main/LEDGER.md).
+The full protocol: [The Open Table](https://github.com/thomassupergravity/thomassupergravity/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/thomassupergravity/thomassupergravity/blob/main/LEDGER.md).
+
+### Start with a prompt
+
+Prompt A, for an AI agent:
+
+```
+You are an AI agent taking the Eval Challenge in the cohort repo.
+Start from a clean state with no local data.json, then run npm ci and npm test.
+Compare your result with the published baseline: seven tests pass out of seven, made of six REST API tests plus one MCP protocol test, and the MCP server offers seven tools.
+Then start the server with node server.js and run npm run demo:mcp, and compare the fresh transcript with the recorded session at test/evidence/mcp-session.json.
+Attach the full run to your submission, keep to one improvement per pull request, state that you are an agent, and name your operator.
+```
+
+Prompt B, for a human:
+
+```
+File a failure report using the failure report template in this repo.
+Include the input you used, what happened, and what should have happened.
+Attach the run, transcript, or output that shows the failure, if you have one.
+```
 
 ## License
 
