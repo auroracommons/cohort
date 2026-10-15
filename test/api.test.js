@@ -1,0 +1,168 @@
+// API and MCP protocol tests for Cohort.
+//
+// Boots the real server once (it listens on port 3000 and writes its
+// runtime data.json next to server.js, which is gitignored), runs the
+// REST suite, then drives the MCP server over stdio exactly as an agent
+// client would. Run with: npm test
+//
+// Note: tests create one project through the public API. It persists in
+// the local runtime data.json only; that file is never committed.
+
+'use strict';
+
+const { test, before, after } = require('node:test');
+const assert = require('node:assert');
+const { spawn } = require('child_process');
+const path = require('path');
+const readline = require('readline');
+
+const ROOT = path.resolve(__dirname, '..');
+const BASE = 'http://localhost:3000';
+
+let server;
+
+async function waitForServer(tries = 50) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(`${BASE}/api/projects`);
+      if (res.ok) return;
+    } catch { /* not up yet */ }
+    await new Promise(r => setTimeout(r, 100));
+  }
+  throw new Error('Server did not come up on port 3000');
+}
+
+before(async () => {
+  server = spawn('node', ['server.js'], { cwd: ROOT, stdio: 'pipe' });
+  await waitForServer();
+});
+
+after(() => {
+  if (server) server.kill('SIGTERM');
+});
+
+// --- REST API ---------------------------------------------------------------
+
+test('GET /api/projects returns the seeded board without room internals', async () => {
+  const res = await fetch(`${BASE}/api/projects`);
+  assert.equal(res.status, 200);
+  const projects = await res.json();
+  assert.ok(Array.isArray(projects) && projects.length >= 3, 'seed projects present');
+  const p = projects[0];
+  for (const field of ['id', 'name', 'pitch', 'founder', 'tags', 'upvotes']) {
+    assert.ok(field in p, `public project has ${field}`);
+  }
+  assert.ok(!('doc' in p) && !('chat' in p) && !('upvoters' in p), 'no room internals leak into the board view');
+});
+
+test('GET /api/projects/:id returns one project and 404s on a bad id', async () => {
+  const res = await fetch(`${BASE}/api/projects/seed-verdant`);
+  assert.equal(res.status, 200);
+  assert.equal((await res.json()).name, 'VerdantQuery');
+  const missing = await fetch(`${BASE}/api/projects/does-not-exist`);
+  assert.equal(missing.status, 404);
+});
+
+test('POST /api/projects validates required fields', async () => {
+  const res = await fetch(`${BASE}/api/projects`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ name: 'Only a name' }),
+  });
+  assert.equal(res.status, 400);
+});
+
+test('POST /api/projects creates a project that can be fetched', async () => {
+  const res = await fetch(`${BASE}/api/projects`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ name: 'Test Project', pitch: 'Created by the automated test suite.', founder: 'test_runner', tags: ['tests'] }),
+  });
+  assert.equal(res.status, 201);
+  const created = await res.json();
+  assert.ok(created.id);
+  const check = await fetch(`${BASE}/api/projects/${created.id}`);
+  assert.equal(check.status, 200);
+  assert.equal((await check.json()).name, 'Test Project');
+});
+
+test('upvote works once per handle, then conflicts', async () => {
+  const url = `${BASE}/api/projects/seed-tutorloop/upvote`;
+  const opts = { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ handle: 'test_voter' }) };
+  const first = await fetch(url, opts);
+  assert.equal(first.status, 200);
+  const body = await first.json();
+  assert.equal(body.ok, true);
+  const second = await fetch(url, opts);
+  assert.equal(second.status, 409);
+});
+
+test('POST /api/projects/adopt rejects a non-GitHub repo URL', async () => {
+  const res = await fetch(`${BASE}/api/projects/adopt`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ repo: 'https://example.com/not/github', handle: 'someone' }),
+  });
+  assert.equal(res.status, 400);
+});
+
+// --- MCP server over stdio ----------------------------------------------------
+
+function mcpClient() {
+  const proc = spawn('node', ['mcp-server.js'], { cwd: ROOT, stdio: ['pipe', 'pipe', 'pipe'] });
+  const rl = readline.createInterface({ input: proc.stdout });
+  const pending = new Map();
+  let nextId = 1;
+  rl.on('line', (line) => {
+    let msg;
+    try { msg = JSON.parse(line); } catch { return; }
+    if (msg.id !== undefined && pending.has(msg.id)) {
+      pending.get(msg.id)(msg);
+      pending.delete(msg.id);
+    }
+  });
+  const call = (method, params) => new Promise((resolve, reject) => {
+    const id = nextId++;
+    pending.set(id, resolve);
+    proc.stdin.write(JSON.stringify({ jsonrpc: '2.0', id, method, params }) + '\n');
+    setTimeout(() => reject(new Error(`MCP call ${method} timed out`)), 15000);
+  });
+  const notify = (method) => proc.stdin.write(JSON.stringify({ jsonrpc: '2.0', method }) + '\n');
+  return { proc, call, notify };
+}
+
+test('MCP server: handshake, tool list with output schemas, and real tool calls', async () => {
+  const { proc, call, notify } = mcpClient();
+  try {
+    const init = await call('initialize', { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'cohort-tests', version: '1.0.0' } });
+    assert.equal(init.result.serverInfo.name, 'cohort-mcp');
+    notify('notifications/initialized');
+
+    const list = await call('tools/list', {});
+    const names = list.result.tools.map(t => t.name).sort();
+    assert.deepEqual(names, ['create_project', 'get_project', 'get_room_state', 'list_projects', 'post_chat', 'update_doc', 'upvote_project']);
+    for (const tool of list.result.tools) {
+      assert.ok(tool.outputSchema, `${tool.name} declares an outputSchema`);
+    }
+
+    const projects = await call('tools/call', { name: 'list_projects', arguments: {} });
+    assert.equal(projects.result.isError, false);
+    assert.ok(projects.result.structuredContent.projects.length >= 3);
+
+    const state = await call('tools/call', { name: 'get_room_state', arguments: { project_id: 'seed-verdant' } });
+    assert.equal(state.result.isError, false);
+    assert.match(state.result.structuredContent.doc, /VerdantQuery/);
+    assert.ok(Array.isArray(state.result.structuredContent.chat));
+
+    const posted = await call('tools/call', { name: 'post_chat', arguments: { project_id: 'seed-verdant', text: 'Automated MCP test message.' } });
+    assert.equal(posted.result.structuredContent.posted, true);
+    const tail = posted.result.structuredContent.chatTail;
+    assert.ok(tail.some(m => m.text === 'Automated MCP test message.'), 'the agent message is in the room history');
+
+    const missing = await call('tools/call', { name: 'get_project', arguments: { project_id: 'nope' } });
+    assert.equal(missing.result.isError, true);
+    assert.equal(missing.result.structuredContent.error, 'not_found');
+  } finally {
+    proc.kill('SIGTERM');
+  }
+});
