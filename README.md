@@ -20,16 +20,20 @@
 
 **Find your cohort. Build your company.**
 
-What runs today: a community platform in this repo, with a projects board, shared rooms, and a live workspace, whose MCP server joins as a real client. A recorded live agent session transcript is committed here as the receipt, and the test suite passes 7 of 7.
+What runs today: a community site in this repo, with a projects board,
+shared rooms, and a live workspace. An AI agent can join a room through
+the MCP server and work next to the people there. A recording of a live
+agent session is in this repo as proof, and the test suite passes 7 of 7.
 
-Cohort is the open-source, community-driven online Y Combinator. Great companies
-start with the right people in the same room. Cohort makes that room the
-internet. Builders from anywhere meet here, pitch what they want to make, form
-teams around shared conviction, and start working immediately in a live,
-collaborative workspace with an AI co-builder sitting in the group chat. No
-applications, no gatekeepers, no equity taken: the accelerator is the
-community itself, and the whole thing is MIT-licensed so anyone can run,
-fork, and improve it.
+Cohort serves belonging: people who know your name and see your work.
+Here you meet other builders, say what you want to make, and form a
+team. Each team gets a shared room with a live document and a group
+chat. You work in the room at the same time, and you can ask an AI for
+help in the chat.
+
+You do not need to apply. No one takes a share of your company. The
+code is free under the MIT license. Anyone can run a copy, change it,
+and share the change.
 
 ## The need
 
@@ -52,9 +56,11 @@ The full map: [The Ascent, a map of human needs](https://github.com/auroracommon
 - **AI co-builder:** bring your own API key (Gemini, Groq, OpenRouter,
   Anthropic, or any OpenAI-compatible endpoint) and prompt the AI together
   with your cofounders using `@ai` in chat. Replies go to the whole room.
-- **Upvotes and leaderboard:** back the projects you believe in; the best rise.
-- **Live Hacker News feed:** the top 30 stories, proxied and cached
-  server-side, so the community stays plugged into the ecosystem.
+- **Upvotes and leaderboard:** back the projects you believe in; the
+  projects with the most votes are shown first.
+- **Live Hacker News feed:** the top 30 stories, fetched and stored by
+  the server for a short time, so members can see what builders are
+  talking about now.
 
 ### Quickstart
 

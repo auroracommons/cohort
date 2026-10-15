@@ -43,8 +43,7 @@ a:hover { text-decoration: underline; }
   top: 0; left: 0; right: 0;
   z-index: 50;
   height: 56px;
-  background: hsla(222, 18%, 10%, 0.88);
-  backdrop-filter: blur(10px);
+  background: hsl(222, 18%, 10%);
   border-bottom: 1px solid var(--border);
 }
 
@@ -198,10 +197,7 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-top: 10px;
-  background: linear-gradient(90deg, var(--text), var(--accent-hover));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text);
 }
 
 .hero .subline {
@@ -402,7 +398,6 @@ a:hover { text-decoration: underline; }
   inset: 0;
   z-index: 100;
   background: hsla(222, 20%, 5%, 0.7);
-  backdrop-filter: blur(3px);
   display: none;
   align-items: flex-start;
   justify-content: center;
