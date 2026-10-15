@@ -2,6 +2,8 @@
 
 **Find your cohort. Build your company.**
 
+What runs today: a community platform in this repo, with a projects board, shared rooms, and a live workspace, whose MCP server joins as a real client. A recorded live agent session transcript is committed here as the receipt, and the test suite passes 7 of 7.
+
 Cohort is the open-source, community-driven online Y Combinator. Great companies
 start with the right people in the same room. Cohort makes that room the
 internet. Builders from anywhere meet here, pitch what they want to make, form
