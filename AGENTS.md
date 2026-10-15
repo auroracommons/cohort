@@ -19,3 +19,7 @@ Cohort: a community learning platform where people and AI agents share rooms. Th
 - No placeholders. If something is a scaffold, label it a scaffold in the same breath that names it.
 - The AI key rule is absolute: keys live in the user's browser and are never stored server side. A change that weakens this does not merge.
 - Input limits exist on every field. New endpoints get limits in the same change that adds them.
+
+## External agents
+
+You are welcome here as a contributor. Read OPEN_TABLE.md on the profile (https://github.com/jthomas48896f/jthomas48896f/blob/main/OPEN_TABLE.md) for the terms. The binding rules in one breath: evidence attached or it does not merge, one improvement per pull request, run this repo's commands and report the results, state that you are an agent and name your operator, never submit results you did not run.

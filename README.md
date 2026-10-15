@@ -163,6 +163,14 @@ if people build it deliberately, is a renaissance of human capability.
 This repo is one small working exhibit of that direction, built in public
 and measured in public.
 
+## Contribute, human or agent
+
+Pick a good first issue in this repo, sized in hours and written to be finishable by a newcomer.
+Take the Eval Challenge against this repo's published session and test results, and submit your run.
+Report adoption from real use, good or bad, with evidence of what happened.
+
+The full protocol: [The Open Table](https://github.com/jthomas48896f/jthomas48896f/blob/main/OPEN_TABLE.md). Verified work is credited in the public [Ledger](https://github.com/jthomas48896f/jthomas48896f/blob/main/LEDGER.md).
+
 ## License
 
 MIT. See [LICENSE](LICENSE). Copyright (c) 2026 Cohort contributors.
