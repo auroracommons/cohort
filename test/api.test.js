@@ -5,21 +5,56 @@
 // REST suite, then drives the MCP server over stdio exactly as an agent
 // client would. Run with: npm test
 //
-// Note: tests create one project through the public API. It persists in
-// the local runtime data.json only; that file is never committed.
+// Note: test isolation for the runtime data file. The server loads
+// data.json at boot and persists every change to it, so a suite that
+// starts from whatever a previous run left behind is not repeatable:
+// the upvote test, for example, votes with the fixed handle test_voter,
+// and that vote stays in data.json after the first run, so a second
+// run gets a 409 on its first vote instead of a 200. To give each run
+// a known fixture state, the before hook moves any existing data.json
+// aside before the server starts, so the server seeds a fresh file,
+// and the after hook deletes the test run file and restores the
+// original data.json untouched. Tests create one project through the
+// public API; it persists only in that throwaway test run file.
 
 'use strict';
 
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
 const { spawn } = require('child_process');
+const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'http://localhost:3000';
+const DATA_FILE = path.join(ROOT, 'data.json');
+const BACKUP_FILE = path.join(ROOT, 'data.json.test-backup');
 
 let server;
+let serverExit;
+let movedDataAside = false;
+
+function moveDataFileAside() {
+  // A backup left behind means a previous run stopped before its
+  // after hook could restore it. Recover the original file first.
+  if (fs.existsSync(BACKUP_FILE)) {
+    fs.rmSync(DATA_FILE, { force: true });
+    fs.renameSync(BACKUP_FILE, DATA_FILE);
+  }
+  if (fs.existsSync(DATA_FILE)) {
+    fs.renameSync(DATA_FILE, BACKUP_FILE);
+    movedDataAside = true;
+  }
+}
+
+function restoreDataFile() {
+  fs.rmSync(DATA_FILE, { force: true });
+  if (movedDataAside && fs.existsSync(BACKUP_FILE)) {
+    fs.renameSync(BACKUP_FILE, DATA_FILE);
+  }
+  movedDataAside = false;
+}
 
 async function waitForServer(tries = 50) {
   for (let i = 0; i < tries; i++) {
@@ -33,12 +68,28 @@ async function waitForServer(tries = 50) {
 }
 
 before(async () => {
+  moveDataFileAside();
   server = spawn('node', ['server.js'], { cwd: ROOT, stdio: 'pipe' });
+  serverExit = new Promise((resolve) => server.once('exit', resolve));
   await waitForServer();
 });
 
-after(() => {
-  if (server) server.kill('SIGTERM');
+after(async () => {
+  if (server) {
+    server.kill('SIGTERM');
+    // Wait for the server to exit before touching data.json: it
+    // flushes its state to that file as it shuts down, and restoring
+    // any earlier would let that flush overwrite the restored file.
+    const exited = await Promise.race([
+      serverExit.then(() => true),
+      new Promise((resolve) => setTimeout(() => resolve(false), 5000)),
+    ]);
+    if (!exited) {
+      server.kill('SIGKILL');
+      await serverExit;
+    }
+  }
+  restoreDataFile();
 });
 
 // --- REST API ---------------------------------------------------------------
