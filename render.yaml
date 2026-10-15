@@ -1,0 +1,16 @@
+# Render blueprint for a free tier demo instance of Cohort.
+# Free web services sleep after about 15 minutes without traffic and take
+# about a minute to wake. The disk is temporary, so the server reseeds its
+# demo data on every restart. Demo data only; see the README section
+# "Run it live for free" for the full limits before deploying.
+services:
+  - type: web
+    name: cohort
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: node server.js
+    healthCheckPath: /api/projects
+    envVars:
+      - key: NODE_ENV
+        value: production

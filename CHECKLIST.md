@@ -29,8 +29,15 @@ Each item needs a short spec with a verify by line before a daily pass picks it 
 - [x] Make the test suite repeatable on a dirty local data.json (isolated test state, not a unique voter handle), so `npm test` passes on repeat runs, not only from clean state. Found and fixed October 15, 2026, see verification baseline above for the root cause and the two consecutive passing runs as evidence.
 - [ ] Agent task history in room state: let an agent see what it and other agents already did in a room, so multi session work has memory. Next capability upgrade.
 - [ ] Auth model decision documented, then scoped agent identities for the MCP server
-- [ ] Uptime demo instance, so the workspace itself (not only the Pages landing) is reachable without running a local server
+- [ ] Uptime demo instance, so the workspace itself (not only the Pages landing) is reachable without running a local server. Deployment package prepared October 15, 2026 (see the live deployment package note below); one account signup step remains, and only Joshua can take it, so the instance is not live yet
 - [ ] Session recordings beyond the committed MCP transcript
+
+## Live deployment package (prepared October 15, 2026, not yet live)
+- What was tried first: running the server on the build VM and exposing it. The VM has no public address of its own. The Tailscale client on the VM is outbound only and cannot host or funnel. Cloudflared is installed, but its account free quick tunnel could not be created from this network: two attempts (default transport and http2) failed at the tunnel request with a TLS handshake error, because this network forces all traffic through an HTTP proxy that cloudflared does not use. No existing Cloudflare, Deno, Fly, Render, Railway, Vercel, or Replit sign in or CLI exists on the VM to deploy with, and no new account may be created in Joshua's name by an agent.
+- What the package contains: a Dockerfile (node:22-alpine, npm ci, node server.js), a .dockerignore, a render.yaml blueprint for a free tier web service (health check at /api/projects), one server change (the port now reads the PORT environment variable, default 3000, so free hosts that assign a port work unchanged), and a README section, "Run it live for free", with the exact steps and limits.
+- Proof the package did not break anything: npm test passes 7 of 7 from a clean state after the port change, and the server was booted on an assigned port (PORT=3107) and answered GET /api/projects with the seeded demo projects.
+- The one remaining step, Joshua's alone: sign up at render.com with the GitHub account (no card on the free route), choose New then Blueprint, pick this repo, and confirm the free plan. Render then builds it and issues the public address.
+- Limits of the free tier, as recorded in the README: the service sleeps after about 15 minutes idle and takes about a minute to wake; the disk is temporary, so the app reseeds its demo data on restart; one small process, a demonstration, not a production home.
 
 ## Working agreements
 - AGENTS.md in this repo governs how changes are made and proven here.

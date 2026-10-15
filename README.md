@@ -189,6 +189,22 @@ Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.githu
 
 That page shows this README as a web page. The working app is not hosted there. To use the app, run the [Quickstart](#quickstart) above and open the site it starts.
 
+### Run it live for free
+
+The server in this repo can run as a public demo at no cost. The package is ready (a `Dockerfile`, a Render blueprint in `render.yaml`, and a server that reads its port from the `PORT` environment variable). One step needs a person, because it creates an account in your name:
+
+1. Go to [render.com](https://render.com) and sign up with your GitHub account. This package targets the free plan. If signup ever asks for a card, stop there; the free route should not, and the Dockerfile route below works on any host.
+2. Choose New, then Blueprint, and pick this repository. Render reads `render.yaml` and fills in the build and start commands itself.
+3. Confirm the free plan and create the service. Render builds it and gives it an `onrender.com` address. Open that address and the app answers with its demo data.
+
+Any host that runs the Dockerfile works the same way.
+
+The limits, stated plainly:
+
+- **It sleeps.** A free service stops after about 15 minutes without visitors and takes about a minute to wake for the next one.
+- **Its memory is temporary.** The data file lives on a disk the host can wipe, so the app reseeds its demo data when it restarts. Nothing real should be stored in a demo instance.
+- **It is one small process.** Enough to open, use, and judge the app. Not a production home for a real community.
+
 ## Contribute, human or agent
 
 Pick a [good first issue](https://github.com/auroracommons/cohort/issues) in this repo, sized in hours and written to be finishable by a newcomer.
