@@ -14,7 +14,7 @@
   --gold: hsl(43, 85%, 58%);
   --silver: hsl(220, 12%, 70%);
   --bronze: hsl(28, 60%, 55%);
-  --radius: 10px;
+  --radius: 0;
   --font: -apple-system, "Inter", "Segoe UI", BlinkMacSystemFont, Roboto,
     Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
@@ -73,9 +73,8 @@ a:hover { text-decoration: underline; }
 
 .brand-dot {
   width: 10px; height: 10px;
-  border-radius: 3px;
+  border-radius: 0;
   background: var(--accent);
-  box-shadow: 0 0 12px var(--accent);
 }
 
 .nav-tabs { display: flex; gap: 4px; }
@@ -87,7 +86,7 @@ a:hover { text-decoration: underline; }
   font: inherit;
   font-size: 14px;
   padding: 6px 12px;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
 }
@@ -101,7 +100,7 @@ a:hover { text-decoration: underline; }
   font-size: 13px;
   padding: 4px 10px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 0;
   background: var(--panel);
   cursor: pointer;
   transition: border-color 0.15s;
@@ -120,7 +119,7 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   font-weight: 500;
   padding: 8px 16px;
-  border-radius: var(--radius);
+  border-radius: 0;
   border: 1px solid transparent;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
@@ -141,7 +140,7 @@ a:hover { text-decoration: underline; }
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent-hover); }
 
-.btn-sm { padding: 5px 11px; font-size: 13px; border-radius: 8px; }
+.btn-sm { padding: 5px 11px; font-size: 13px; border-radius: 0; }
 
 .btn:disabled { opacity: 0.55; cursor: default; }
 
@@ -181,7 +180,7 @@ a:hover { text-decoration: underline; }
   background: var(--accent-soft);
   border: 1px solid hsla(243, 80%, 66%, 0.35);
   padding: 4px 12px;
-  border-radius: 999px;
+  border-radius: 0;
   margin-bottom: 24px;
 }
 
@@ -224,7 +223,7 @@ a:hover { text-decoration: underline; }
 .feature-card {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: 24px;
   transition: border-color 0.15s, transform 0.15s;
 }
@@ -244,7 +243,7 @@ a:hover { text-decoration: underline; }
 .project-card {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -274,7 +273,7 @@ a:hover { text-decoration: underline; }
   color: var(--accent-hover);
   background: var(--accent-soft);
   padding: 2px 9px;
-  border-radius: 999px;
+  border-radius: 0;
   border: 1px solid hsla(243, 80%, 66%, 0.25);
 }
 
@@ -297,7 +296,7 @@ a:hover { text-decoration: underline; }
   color: var(--text-dim);
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 5px 11px;
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
@@ -321,7 +320,7 @@ a:hover { text-decoration: underline; }
   background: var(--panel);
   border: 1px solid var(--border);
   border-left: 3px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: 14px 20px;
 }
 .board-row.rank-1 { border-left-color: var(--gold); }
@@ -408,11 +407,10 @@ a:hover { text-decoration: underline; }
 .modal {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 0;
   width: 100%;
   max-width: 460px;
   padding: 28px;
-  box-shadow: 0 24px 60px hsla(222, 30%, 3%, 0.6);
 }
 
 .modal h2 { font-size: 18px; margin-bottom: 4px; letter-spacing: -0.01em; }
@@ -436,7 +434,7 @@ a:hover { text-decoration: underline; }
   color: var(--text);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 9px 12px;
   outline: none;
   transition: border-color 0.15s;
@@ -472,7 +470,7 @@ a:hover { text-decoration: underline; }
 .ws-panel {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -516,9 +514,8 @@ a:hover { text-decoration: underline; }
 
 .member-dot {
   width: 7px; height: 7px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--green);
-  box-shadow: 0 0 6px hsla(150, 60%, 52%, 0.7);
   flex-shrink: 0;
 }
 
@@ -583,7 +580,7 @@ a:hover { text-decoration: underline; }
 .chat-msg.from-ai {
   border-left: 3px solid var(--accent);
   background: var(--accent-soft);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0;
   padding: 8px 12px;
 }
 .chat-msg.from-ai .chat-from { color: var(--accent-hover); }
@@ -607,7 +604,7 @@ a:hover { text-decoration: underline; }
   color: var(--text);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 9px 12px;
   outline: none;
   min-width: 0;
@@ -655,7 +652,7 @@ a:hover { text-decoration: underline; }
   align-items: flex-start;
   background: hsl(222, 15%, 15%);
   border: 1px solid hsl(222, 10%, 24%);
-  border-radius: 10px;
+  border-radius: 0;
   padding: 20px 22px;
 }
 
@@ -663,7 +660,7 @@ a:hover { text-decoration: underline; }
   flex-shrink: 0;
   width: 34px;
   height: 34px;
-  border-radius: 50%;
+  border-radius: 0;
   background: hsl(243, 80%, 66%);
   color: #fff;
   font-weight: 700;
@@ -684,7 +681,7 @@ a:hover { text-decoration: underline; }
 .learn-card code {
   background: hsl(222, 18%, 10%);
   border: 1px solid hsl(222, 10%, 24%);
-  border-radius: 5px;
+  border-radius: 0;
   padding: 1px 6px;
   font-size: 0.9em;
 }
