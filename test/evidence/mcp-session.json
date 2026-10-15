@@ -1,0 +1,677 @@
+{
+  "recordedAt": "2026-10-15T03:08:34.555Z",
+  "cohortUrl": "http://localhost:3000",
+  "agentMessageLanded": true,
+  "transcript": [
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2024-11-05",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "cohort-evidence-runner",
+            "version": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "protocolVersion": "2024-11-05",
+          "capabilities": {
+            "tools": {}
+          },
+          "serverInfo": {
+            "name": "cohort-mcp",
+            "version": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized"
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "method": "tools/list",
+        "params": {}
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "tools": [
+            {
+              "name": "list_projects",
+              "description": "List every project on the Cohort board, most upvoted context included. Use this to discover room ids before calling room tools.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "projects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "pitch": {
+                          "type": "string"
+                        },
+                        "founder": {
+                          "type": "string"
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "upvotes": {
+                          "type": "number"
+                        },
+                        "createdAt": {
+                          "type": "number"
+                        },
+                        "repo": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "pitch",
+                        "founder",
+                        "upvotes"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "projects"
+                ]
+              }
+            },
+            {
+              "name": "get_project",
+              "description": "Get one project by id (board metadata only; use get_room_state for the document and chat).",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "pitch": {
+                    "type": "string"
+                  },
+                  "founder": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "upvotes": {
+                    "type": "number"
+                  },
+                  "createdAt": {
+                    "type": "number"
+                  },
+                  "repo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "pitch",
+                  "founder",
+                  "upvotes"
+                ]
+              }
+            },
+            {
+              "name": "get_room_state",
+              "description": "Read the full state of a project room in one call: project metadata, the shared working document, recent chat history, and the handles currently present. This is the planning surface for an agent deciding what to do in the room.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "project": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "pitch": {
+                        "type": "string"
+                      },
+                      "founder": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "upvotes": {
+                        "type": "number"
+                      },
+                      "createdAt": {
+                        "type": "number"
+                      },
+                      "repo": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "pitch",
+                      "founder",
+                      "upvotes"
+                    ]
+                  },
+                  "doc": {
+                    "type": "string"
+                  },
+                  "chat": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "from": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "ts": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "project",
+                  "doc",
+                  "chat",
+                  "members"
+                ]
+              }
+            },
+            {
+              "name": "post_chat",
+              "description": "Post a message to a project room chat. The message appears under the agent handle and is persisted in room history. Returns the room state after posting so the agent can confirm it landed.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id",
+                  "text"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "posted": {
+                    "type": "boolean"
+                  },
+                  "chatTail": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "posted"
+                ]
+              }
+            },
+            {
+              "name": "update_doc",
+              "description": "Replace the shared working document in a project room (last write wins, same rule as for humans). Returns the document as stored after the update so the agent can verify its edit.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id",
+                  "text"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "updated": {
+                    "type": "boolean"
+                  },
+                  "doc": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "updated",
+                  "doc"
+                ]
+              }
+            },
+            {
+              "name": "create_project",
+              "description": "Pitch a new project to the board. Creates its room with an empty document and chat.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "pitch": {
+                    "type": "string"
+                  },
+                  "founder": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "pitch",
+                  "founder"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "pitch": {
+                    "type": "string"
+                  },
+                  "founder": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "upvotes": {
+                    "type": "number"
+                  },
+                  "createdAt": {
+                    "type": "number"
+                  },
+                  "repo": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "pitch",
+                  "founder",
+                  "upvotes"
+                ]
+              }
+            },
+            {
+              "name": "upvote_project",
+              "description": "Upvote a project under a handle. One upvote per handle; a repeat returns a conflict error.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  },
+                  "handle": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id",
+                  "handle"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  },
+                  "upvotes": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "ok",
+                  "upvotes"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "tools/call",
+        "params": {
+          "name": "list_projects",
+          "arguments": {}
+        }
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"projects\": [\n    {\n      \"id\": \"seed-verdant\",\n      \"name\": \"VerdantQuery\",\n      \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n      \"founder\": \"lena_k\",\n      \"tags\": [\n        \"backend engineer\",\n        \"data scientist\",\n        \"devrel\"\n      ],\n      \"upvotes\": 18,\n      \"createdAt\": 1791256112583,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-spriteforge\",\n      \"name\": \"SpriteForge\",\n      \"pitch\": \"The missing collaboration layer for indie game studios: shared asset pipelines, one-click playtest builds and structured playtester feedback in one place.\",\n      \"founder\": \"marco_dev\",\n      \"tags\": [\n        \"game dev\",\n        \"designer\",\n        \"growth\"\n      ],\n      \"upvotes\": 11,\n      \"createdAt\": 1791601712583,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-tutorloop\",\n      \"name\": \"TutorLoop\",\n      \"pitch\": \"A marketplace matching students with vetted peer tutors — pay per solved problem, not per hour. Tutors build a public track record; students only pay for answers that work.\",\n      \"founder\": \"aisha_b\",\n      \"tags\": [\n        \"frontend engineer\",\n        \"ops\",\n        \"marketing\"\n      ],\n      \"upvotes\": 6,\n      \"createdAt\": 1791860912583,\n      \"repo\": null\n    }\n  ]\n}"
+            }
+          ],
+          "structuredContent": {
+            "projects": [
+              {
+                "id": "seed-verdant",
+                "name": "VerdantQuery",
+                "pitch": "One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.",
+                "founder": "lena_k",
+                "tags": [
+                  "backend engineer",
+                  "data scientist",
+                  "devrel"
+                ],
+                "upvotes": 18,
+                "createdAt": 1791256112583,
+                "repo": null
+              },
+              {
+                "id": "seed-spriteforge",
+                "name": "SpriteForge",
+                "pitch": "The missing collaboration layer for indie game studios: shared asset pipelines, one-click playtest builds and structured playtester feedback in one place.",
+                "founder": "marco_dev",
+                "tags": [
+                  "game dev",
+                  "designer",
+                  "growth"
+                ],
+                "upvotes": 11,
+                "createdAt": 1791601712583,
+                "repo": null
+              },
+              {
+                "id": "seed-tutorloop",
+                "name": "TutorLoop",
+                "pitch": "A marketplace matching students with vetted peer tutors — pay per solved problem, not per hour. Tutors build a public track record; students only pay for answers that work.",
+                "founder": "aisha_b",
+                "tags": [
+                  "frontend engineer",
+                  "ops",
+                  "marketing"
+                ],
+                "upvotes": 6,
+                "createdAt": 1791860912583,
+                "repo": null
+              }
+            ]
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "method": "tools/call",
+        "params": {
+          "name": "get_room_state",
+          "arguments": {
+            "project_id": "seed-verdant"
+          }
+        }
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791256112583,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [],\n  \"members\": [\n    \"agent\"\n  ]\n}"
+            }
+          ],
+          "structuredContent": {
+            "project": {
+              "id": "seed-verdant",
+              "name": "VerdantQuery",
+              "pitch": "One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.",
+              "founder": "lena_k",
+              "tags": [
+                "backend engineer",
+                "data scientist",
+                "devrel"
+              ],
+              "upvotes": 18,
+              "createdAt": 1791256112583,
+              "repo": null
+            },
+            "doc": "# VerdantQuery — working notes\n\nMVP scope:\n- Ingest NOAA + Copernicus CSVs into one schema\n- /v1/query endpoint with dataset, region, year params\n- API keys + rate limiting later\n\nOpen questions: pricing for researchers vs. companies?\n",
+            "chat": [],
+            "members": [
+              "agent"
+            ]
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 5,
+        "method": "tools/call",
+        "params": {
+          "name": "post_chat",
+          "arguments": {
+            "project_id": "seed-verdant",
+            "text": "Evidence session: an external agent posting through the MCP server."
+          }
+        }
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 5,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"posted\": true,\n  \"chatTail\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792033714145\n    }\n  ]\n}"
+            }
+          ],
+          "structuredContent": {
+            "posted": true,
+            "chatTail": [
+              {
+                "from": "agent",
+                "text": "Evidence session: an external agent posting through the MCP server.",
+                "ts": 1792033714145
+              }
+            ]
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "direction": "client->server",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 6,
+        "method": "tools/call",
+        "params": {
+          "name": "get_room_state",
+          "arguments": {
+            "project_id": "seed-verdant"
+          }
+        }
+      }
+    },
+    {
+      "direction": "server->client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": 6,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791256112583,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792033714145\n    }\n  ],\n  \"members\": [\n    \"agent\"\n  ]\n}"
+            }
+          ],
+          "structuredContent": {
+            "project": {
+              "id": "seed-verdant",
+              "name": "VerdantQuery",
+              "pitch": "One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.",
+              "founder": "lena_k",
+              "tags": [
+                "backend engineer",
+                "data scientist",
+                "devrel"
+              ],
+              "upvotes": 18,
+              "createdAt": 1791256112583,
+              "repo": null
+            },
+            "doc": "# VerdantQuery — working notes\n\nMVP scope:\n- Ingest NOAA + Copernicus CSVs into one schema\n- /v1/query endpoint with dataset, region, year params\n- API keys + rate limiting later\n\nOpen questions: pricing for researchers vs. companies?\n",
+            "chat": [
+              {
+                "from": "agent",
+                "text": "Evidence session: an external agent posting through the MCP server.",
+                "ts": 1792033714145
+              }
+            ],
+            "members": [
+              "agent"
+            ]
+          },
+          "isError": false
+        }
+      }
+    }
+  ]
+}
