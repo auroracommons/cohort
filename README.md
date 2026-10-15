@@ -1,16 +1,22 @@
 <style>
-.commons-bar{font:inherit;padding:1em 0;line-height:2}
-.commons-bar a,.commons-bar span{margin-right:1rem}
+.commons-bar{font:inherit;position:sticky;top:0;background:#ffffff;border-bottom:1px solid #d9d2c3;padding:0 1em;line-height:2;z-index:10}
+.commons-bar a,.commons-bar span{margin-right:1rem;display:inline-flex;align-items:center;min-height:44px}
+.commons-bar .wordmark{font-weight:600}
 .commons-bar span{font-weight:700}
 .commons-footer{margin-top:3em;font:inherit;line-height:1.6}
+.skip-link{position:absolute;left:-9999px;top:0;background:#ffffff;padding:10px 16px}
+.skip-link:focus{position:static}
+:focus-visible{outline:2px solid #1c1a17;outline-offset:2px}
+[id]{scroll-margin-top:72px}
 </style>
+<a class="skip-link" href="#cohort">Skip to the content</a>
 <nav class="commons-bar" aria-label="Aurora Commons sites">
-  <a href="https://auroracommons.github.io/auroracommons/">Aurora Commons</a>
+  <a class="wordmark" href="https://auroracommons.github.io/auroracommons/">Aurora Commons</a>
   <a href="https://auroracommons.github.io/auroracommons/foundations.html">Foundations</a>
   <a href="https://auroracommons.github.io/ground/">Ground</a>
   <a href="https://auroracommons.github.io/still/">Still</a>
   <a href="https://auroracommons.github.io/atlas/">Atlas</a>
-  <span aria-current="page">Cohort</span>
+  <span aria-current="page">Cohort (you are here)</span>
   <a href="https://auroracommons.github.io/graph/">Graph</a>
   <a href="https://auroracommons.github.io/machine/">Machine</a>
   <a href="https://auroracommons.github.io/lumen/">Lumen</a>
@@ -20,12 +26,17 @@
 
 **Find your cohort. Build your company.**
 
-First step: run the [Quickstart](#quickstart) below, open the site it starts, and click Browse projects to meet the builders there.
+Cohort is one of the seven tools of Aurora Commons. It serves Layer 3, belonging.
+
+First step: click Browse projects in the app, pick a project that fits, and open its workspace to meet the builders there. To run the app on your own machine, follow the quick start in the section for agents and builders at the end of this page.
 
 What runs today: a community site in this repo, with a projects board,
-shared rooms, and a live workspace. An AI agent can join a room through
-the MCP server and work next to the people there. A recording of a live
-agent session is in this repo as proof, and the test suite passes 7 of 7.
+shared rooms, and a live workspace. A program can join a room as a member
+and work next to the people there. A recording of a live session with a
+program member is in this repo as proof, and the test suite passes 7 of 7.
+There are no accounts yet: you pick a name and you are in. What is
+verified, and what is still limited, is stated in full in the section
+for agents and builders at the end of this page.
 
 You do not need to apply. No one takes a share of your company. The
 code is free under the MIT license. Anyone can run a copy, change it,
@@ -48,7 +59,7 @@ The full map: [The Ascent, a map of human needs](https://github.com/auroracommon
 - **Projects board:** pitch an idea in one breath, tag the roles you're
   looking for, and let the community find you.
 - **Real-time workspace:** every project gets a shared live-editing document
-  and a group chat, synced over WebSockets.
+  and a group chat, kept in step for everyone at once.
 - **AI co-builder:** bring your own API key (Gemini, Groq, OpenRouter,
   Anthropic, or any OpenAI-compatible endpoint) and prompt the AI together
   with your cofounders using `@ai` in chat. Replies go to the whole room.
@@ -57,6 +68,52 @@ The full map: [The Ascent, a map of human needs](https://github.com/auroracommon
 - **Live Hacker News feed:** the top 30 stories, fetched and stored by
   the server for a short time, so members can see what builders are
   talking about now.
+
+### Bring your own AI key
+
+Cohort never stores your AI key on the server. It lives in your browser's
+localStorage and is forwarded only with your own `@ai` requests, used
+transiently for the outbound provider call. Configure it via **AI Settings**
+in the top nav.
+
+| Provider   | Free tier (approx.)   | Get a key                                                |
+| ---------- | --------------------- | -------------------------------------------------------- |
+| Gemini     | ~1,500 requests/day   | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| Groq       | ~1,000 requests/day   | [console.groq.com](https://console.groq.com)             |
+| OpenRouter | free-tier models      | [openrouter.ai](https://openrouter.ai)                    |
+| Anthropic  | pay-as-you-go         | [console.anthropic.com](https://console.anthropic.com)    |
+
+Any OpenAI-compatible endpoint also works via the **Custom base URL** provider.
+
+### The larger story
+
+Cohort is Act 2, the Commons, in a five part body of work built on one
+thesis: technology should increase human capability without taking human
+agency away. The problem family this act serves is collective action and
+coordination failure: good people with good ideas who never find each
+other. The other acts:
+
+- Act 1, the Atlas: [atlas](https://github.com/auroracommons/atlas), how people learn.
+- Act 3, the Machine: [machine](https://github.com/auroracommons/machine), how the machine itself learns, from first principles.
+- Act 4, the Graph: [graph](https://github.com/auroracommons/graph), how knowledge connects and can be questioned.
+- Act 5, the Guardrails: [lumen](https://github.com/auroracommons/lumen), how all of it stays safe, cited, and human governed.
+
+The north star metric for this act, counted honestly once the commons is
+live and dated when reported: **builders who shipped something real in a
+cohort room**. No number is claimed yet, because there are no public rooms
+yet. Ways to take part, including sized tasks for partners and
+contributors, are in [the guide to taking part](COLLABORATE.md) and
+[the guide to contributing](CONTRIBUTING.md).
+
+## Live demo
+
+Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.github.io/cohort/)
+
+That page shows this README as a web page. The working app is not hosted there. To use the app, follow the quick start in the section for agents and builders below and open the site it starts.
+
+## For agents and builders
+
+The exact technical description lives in this section. Everything a person needs is stated in plain words above it.
 
 ### Quickstart
 
@@ -112,22 +169,6 @@ node server.js          # in one terminal
 npm run demo:mcp        # records a fresh session transcript
 ```
 
-### Bring your own AI key
-
-Cohort never stores your AI key on the server. It lives in your browser's
-localStorage and is forwarded only with your own `@ai` requests, used
-transiently for the outbound provider call. Configure it via **AI Settings**
-in the top nav.
-
-| Provider   | Free tier (approx.)   | Get a key                                                |
-| ---------- | --------------------- | -------------------------------------------------------- |
-| Gemini     | ~1,500 requests/day   | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
-| Groq       | ~1,000 requests/day   | [console.groq.com](https://console.groq.com)             |
-| OpenRouter | free-tier models      | [openrouter.ai](https://openrouter.ai)                    |
-| Anthropic  | pay-as-you-go         | [console.anthropic.com](https://console.anthropic.com)    |
-
-Any OpenAI-compatible endpoint also works via the **Custom base URL** provider.
-
 ### Roadmap
 
 - **Agent task history in room state (planned).** Let an agent see what it
@@ -145,29 +186,9 @@ Any OpenAI-compatible endpoint also works via the **Custom base URL** provider.
 - **Demo days:** scheduled community showcases with live voting.
 - **Age-gated tracks:** a safe, moderated track for young builders.
 
-### The larger story
+### The proof
 
-Cohort is Act 2, the Commons, in a five part body of work built on one
-thesis: technology should increase human capability without taking human
-agency away. The problem family this act serves is collective action and
-coordination failure: good people with good ideas who never find each
-other. The other acts:
-
-- Act 1, the Atlas: [atlas](https://github.com/auroracommons/atlas), how people learn.
-- Act 3, the Machine: [machine](https://github.com/auroracommons/machine), how the machine itself learns, from first principles.
-- Act 4, the Graph: [graph](https://github.com/auroracommons/graph), how knowledge connects and can be questioned.
-- Act 5, the Guardrails: [lumen](https://github.com/auroracommons/lumen), how all of it stays safe, cited, and human governed.
-
-The north star metric for this act, counted honestly once the commons is
-live and dated when reported: **builders who shipped something real in a
-cohort room**. No number is claimed yet, because there are no public rooms
-yet. Ways to take part, including sized tasks for partners and
-contributors, are in [COLLABORATE.md](COLLABORATE.md) and
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
-## The proof
-
-### Status and known limitations
+#### Status and known limitations
 
 Working and verified: the server boots clean, the projects API returns the
 seeded board, workspaces sync in real time, the AI co-builder works with
@@ -182,12 +203,6 @@ the REST API is covered by automated tests. Known limitations, stated plainly:
 - **Single instance persistence.** `data.json` will not survive a
   multi-instance host. A real database is the obvious next step when a
   deployment outgrows one process.
-
-## Live demo
-
-Live demo: [https://auroracommons.github.io/cohort/](https://auroracommons.github.io/cohort/)
-
-That page shows this README as a web page. The working app is not hosted there. To use the app, run the [Quickstart](#quickstart) above and open the site it starts.
 
 ### Run it live for free
 
@@ -245,12 +260,13 @@ the OpenAI-compatible chat completions convention adopted by
 Google, Groq and OpenRouter, and the Y Combinator ethos of
 *make something people want*, which this project tries to give away for free.
 
-<p>The layer below: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
-<p>The layer above: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
+<p>Below this layer: <a href="https://auroracommons.github.io/atlas/">Atlas, learning</a></p>
+<p>Above this layer: <a href="https://auroracommons.github.io/graph/">Graph, shared truth</a></p>
 <p>The research under this layer: <a href="https://auroracommons.github.io/auroracommons/foundations.html#belonging-and-social-connection">Foundations, Belonging and social connection</a></p>
 Built on Atlas: learning.
 Unlocks the ability to contribute.
 <footer class="commons-footer">
+  <p><a href="https://auroracommons.github.io/auroracommons/">Back to the home page</a></p>
   <p>Aurora Commons addresses the hierarchy of human needs through open source.</p>
   <p>Motto: Stand on the shoulders of giants.</p>
   <p>One rule: raise the floor beneath everyone.</p>

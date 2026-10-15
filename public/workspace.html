@@ -3,10 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workspace — Cohort</title>
+  <title>Workspace: Cohort</title>
   <link rel="stylesheet" href="/style.css" />
+  <style>
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: hsl(222, 18%, 10%);
+      padding: 10px 16px;
+      z-index: 70;
+    }
+    .skip-link:focus { position: fixed; left: 0; }
+    :focus-visible { outline: 2px solid #e8e8ea; outline-offset: 2px; }
+    [id] { scroll-margin-top: 72px; }
+  </style>
 </head>
 <body>
+<a class="skip-link" href="#content">Skip to the content</a>
   <nav class="nav">
     <div class="nav-inner wide">
       <a class="brand" href="/"><span class="brand-dot"></span>Cohort</a>
@@ -17,11 +31,11 @@
     </div>
   </nav>
 
-  <div class="ws-layout">
+  <div class="ws-layout" id="content">
     <!-- Left: project info -->
     <aside class="ws-panel ws-side" id="ws-side">
       <div>
-        <h2 id="ws-name">Loading…</h2>
+        <h1 id="ws-name">Loading…</h1>
         <p class="project-founder" id="ws-founder"></p>
       </div>
       <p class="project-pitch" id="ws-pitch"></p>
@@ -42,9 +56,9 @@
 
     <!-- Center: shared editor -->
     <section class="ws-panel">
-      <div class="ws-panel-head">Shared workspace — everyone edits live</div>
+      <div class="ws-panel-head">Shared workspace: everyone edits live</div>
       <textarea class="ws-editor" id="ws-editor" spellcheck="false"
-        placeholder="Plan, spec, code, notes — everything here is synced live with your team."></textarea>
+        placeholder="Plan, spec, code, notes. Everything here is synced live with your team."></textarea>
       <div class="ws-status">
         <span id="ws-conn"><span class="status-dot off">●</span> connecting…</span>
         <span id="ws-doc-status"></span>

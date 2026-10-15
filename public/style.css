@@ -491,6 +491,7 @@ a:hover { text-decoration: underline; }
 .ws-side { padding: 18px; overflow-y: auto; gap: 16px; display: flex; flex-direction: column; }
 
 .ws-side h2 { font-size: 19px; letter-spacing: -0.01em; }
+.ws-side h1 { font-size: 19px; letter-spacing: -0.01em; }
 .ws-side .project-pitch { flex: none; }
 
 .ws-side-label {
