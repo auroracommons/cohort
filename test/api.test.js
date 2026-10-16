@@ -148,6 +148,36 @@ test('upvote works once per handle, then conflicts', async () => {
   assert.equal(second.status, 409);
 });
 
+// Why this test exists: the activity log is the room's task history. An
+// agent returning to a room plans from it, so creation and upvote must be
+// recorded in order, with the actor named, on the single-project read
+// (the board list stays free of room internals, per the first test).
+test('room activity log records creation and upvote in order', async () => {
+  const res = await fetch(`${BASE}/api/projects`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ name: 'Activity Project', pitch: 'Created by the automated test suite to check the activity log.', founder: 'test_runner', tags: ['tests'] }),
+  });
+  assert.equal(res.status, 201);
+  const created = await res.json();
+
+  const vote = await fetch(`${BASE}/api/projects/${created.id}/upvote`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ handle: 'activity_voter' }),
+  });
+  assert.equal(vote.status, 200);
+
+  const check = await fetch(`${BASE}/api/projects/${created.id}`);
+  assert.equal(check.status, 200);
+  const project = await check.json();
+  assert.ok(Array.isArray(project.activity), 'single project read carries the activity log');
+  assert.deepEqual(project.activity.map(a => a.kind), ['created', 'upvote']);
+  assert.equal(project.activity[0].actor, 'test_runner');
+  assert.equal(project.activity[1].actor, 'activity_voter');
+  assert.ok(project.activity.every(a => typeof a.ts === 'number' && a.detail.length > 0));
+});
+
 test('POST /api/projects/adopt rejects a non-GitHub repo URL', async () => {
   const res = await fetch(`${BASE}/api/projects/adopt`, {
     method: 'POST',
@@ -191,7 +221,7 @@ test('MCP server: handshake, tool list with output schemas, and real tool calls'
 
     const list = await call('tools/list', {});
     const names = list.result.tools.map(t => t.name).sort();
-    assert.deepEqual(names, ['create_project', 'get_project', 'get_room_state', 'list_projects', 'post_chat', 'update_doc', 'upvote_project']);
+    assert.deepEqual(names, ['create_project', 'get_project', 'get_room_state', 'get_task_history', 'list_projects', 'post_chat', 'update_doc', 'upvote_project']);
     for (const tool of list.result.tools) {
       assert.ok(tool.outputSchema, `${tool.name} declares an outputSchema`);
     }
@@ -209,6 +239,15 @@ test('MCP server: handshake, tool list with output schemas, and real tool calls'
     assert.equal(posted.result.structuredContent.posted, true);
     const tail = posted.result.structuredContent.chatTail;
     assert.ok(tail.some(m => m.text === 'Automated MCP test message.'), 'the agent message is in the room history');
+
+    const history = await call('tools/call', { name: 'get_task_history', arguments: { project_id: 'seed-verdant' } });
+    assert.equal(history.result.isError, false);
+    assert.ok(
+      history.result.structuredContent.activity.some(a => a.kind === 'chat' && a.actor === 'agent'),
+      'the agent chat post is recorded in the room task history'
+    );
+    const stateAfter = await call('tools/call', { name: 'get_room_state', arguments: { project_id: 'seed-verdant' } });
+    assert.ok(Array.isArray(stateAfter.result.structuredContent.activity), 'room state carries the activity log');
 
     const missing = await call('tools/call', { name: 'get_project', arguments: { project_id: 'nope' } });
     assert.equal(missing.result.isError, true);

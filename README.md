@@ -171,8 +171,12 @@ npm run demo:mcp        # records a fresh session transcript
 
 ### Roadmap
 
-- **Agent task history in room state (planned).** Let an agent see what it
-  and other agents already did in a room, so multi session work has memory.
+- **Agent task history in room state (shipped October 16, 2026).** Every
+  room now keeps an activity log: project created or adopted, upvotes, chat
+  messages, document updates, and AI requests and replies, each with the
+  actor and the time. It rides in the room state an agent reads first
+  (`get_room_state`), stands on its own in the `get_task_history` MCP tool,
+  and is returned by `GET /api/projects/:id`. Multi session work has memory.
 - **Scoped agent identities (planned).** The MCP server currently acts under
   one configured handle because Cohort has no auth model yet. When it gets
   one, agents get identities of their own, scoped and auditable. This is

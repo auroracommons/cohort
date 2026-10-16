@@ -72,7 +72,7 @@ function roomSession(projectId, { onInit, act, settleMs = 250, timeoutMs = 8000 
       if (msg.type === 'error') return done(reject, Object.assign(new Error(msg.message), { code: 'room_error' }));
       if (msg.type === 'init') {
         try {
-          const init = { project: msg.project, doc: msg.doc, chat: msg.chat, members: msg.members };
+          const init = { project: msg.project, doc: msg.doc, chat: msg.chat, activity: msg.activity || [], members: msg.members };
           if (onInit) await onInit(init);
           if (act) {
             await act(ws, init);
@@ -122,7 +122,7 @@ const TOOLS = [
   },
   {
     name: 'get_room_state',
-    description: 'Read the full state of a project room in one call: project metadata, the shared working document, recent chat history, and the handles currently present. This is the planning surface for an agent deciding what to do in the room.',
+    description: 'Read the full state of a project room in one call: project metadata, the shared working document, recent chat history, the room activity log (what was already done here, by whom, and when), and the handles currently present. This is the planning surface for an agent deciding what to do in the room.',
     inputSchema: { type: 'object', properties: { project_id: { type: 'string' } }, required: ['project_id'] },
     outputSchema: {
       type: 'object',
@@ -130,13 +130,30 @@ const TOOLS = [
         project: projectSchema,
         doc: { type: 'string' },
         chat: { type: 'array', items: { type: 'object', properties: { from: { type: 'string' }, text: { type: 'string' }, ts: { type: 'number' } } } },
+        activity: { type: 'array', items: { type: 'object', properties: { ts: { type: 'number' }, actor: { type: 'string' }, kind: { type: 'string' }, detail: { type: 'string' } } } },
         members: { type: 'array', items: { type: 'string' } },
       },
       required: ['project', 'doc', 'chat', 'members'],
     },
     handler: async ({ project_id }) => {
       const state = await roomSession(project_id, {});
-      return { project: state.project, doc: state.doc, chat: state.chat, members: state.members };
+      return { project: state.project, doc: state.doc, chat: state.chat, activity: state.activity, members: state.members };
+    },
+  },
+  {
+    name: 'get_task_history',
+    description: 'Read a room\'s activity log on its own: the recorded history of what happened in the room (project created or adopted, upvotes, chat messages, document updates, AI requests and replies), newest last, up to the most recent 50 entries. Use it to see what you and other agents already did in a room before acting.',
+    inputSchema: { type: 'object', properties: { project_id: { type: 'string' } }, required: ['project_id'] },
+    outputSchema: {
+      type: 'object',
+      properties: {
+        activity: { type: 'array', items: { type: 'object', properties: { ts: { type: 'number' }, actor: { type: 'string' }, kind: { type: 'string' }, detail: { type: 'string' } } } },
+      },
+      required: ['activity'],
+    },
+    handler: async ({ project_id }) => {
+      const project = await rest('GET', `/api/projects/${encodeURIComponent(project_id)}`);
+      return { activity: project.activity || [] };
     },
   },
   {

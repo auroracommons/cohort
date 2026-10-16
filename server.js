@@ -24,6 +24,8 @@ const MAX_TAGS = 8;
 const MAX_CHAT = 2000;
 const MAX_DOC = 200000;
 const MAX_CHAT_HISTORY = 200;
+const MAX_ACTIVITY = 200;
+const MAX_ACTIVITY_DETAIL = 120;
 
 // ---------------------------------------------------------------------------
 // Persistence: load at boot, debounced save
@@ -46,6 +48,7 @@ function seedData() {
         doc:
           '# VerdantQuery — working notes\n\nMVP scope:\n- Ingest NOAA + Copernicus CSVs into one schema\n- /v1/query endpoint with dataset, region, year params\n- API keys + rate limiting later\n\nOpen questions: pricing for researchers vs. companies?\n',
         chat: [],
+        activity: [],
       },
       {
         id: 'seed-spriteforge',
@@ -59,6 +62,7 @@ function seedData() {
         doc:
           '# SpriteForge scratchpad\n\nThis week:\n- CLI that watches /assets and pushes to CDN\n- Feedback widget embedded in web builds\n\nCompetitors: itch.io (distribution only), Backtrace (crashes only). Our wedge is the playtest loop.\n',
         chat: [],
+        activity: [],
       },
       {
         id: 'seed-tutorloop',
@@ -72,6 +76,7 @@ function seedData() {
         doc:
           '# TutorLoop plan\n\nHypothesis: per-problem pricing beats hourly for homework help.\n\nNext: landing page + waitlist, interview 10 students, escrow flow sketch.\n',
         chat: [],
+        activity: [],
       },
     ],
   };
@@ -81,7 +86,14 @@ function loadData() {
   try {
     const raw = fs.readFileSync(DATA_FILE, 'utf8');
     const parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed.projects)) return parsed;
+    if (parsed && Array.isArray(parsed.projects)) {
+      // Migration: rooms created before the activity log existed get an
+      // empty one, so every project carries the same room state shape.
+      for (const p of parsed.projects) {
+        if (!Array.isArray(p.activity)) p.activity = [];
+      }
+      return parsed;
+    }
     console.warn('data.json malformed, reseeding');
   } catch (err) {
     if (err.code !== 'ENOENT') console.warn('data.json unreadable, reseeding:', err.message);
@@ -133,6 +145,25 @@ function findProject(id) {
   return data.projects.find((p) => p.id === id);
 }
 
+// Room activity log: one entry per thing that happened in a room, so an
+// agent (or a person returning) can see what was already done here before
+// deciding what to do next. Kinds: created, adopted, upvote, chat, doc,
+// ai_request, ai_reply. Detail is a short human summary, never a copy of a
+// document or a full message.
+function recordActivity(project, actor, kind, detail) {
+  if (!Array.isArray(project.activity)) project.activity = [];
+  project.activity.push({
+    ts: Date.now(),
+    actor: cleanText(actor, MAX_HANDLE) || 'anonymous',
+    kind,
+    detail: cleanText(detail, MAX_ACTIVITY_DETAIL),
+  });
+  if (project.activity.length > MAX_ACTIVITY) {
+    project.activity.splice(0, project.activity.length - MAX_ACTIVITY);
+  }
+  scheduleSave();
+}
+
 function publicProject(p) {
   return {
     id: p.id,
@@ -161,7 +192,7 @@ app.get('/api/projects', (req, res) => {
 app.get('/api/projects/:id', (req, res) => {
   const project = findProject(req.params.id);
   if (!project) return res.status(404).json({ error: 'Project not found' });
-  res.json(publicProject(project));
+  res.json({ ...publicProject(project), activity: (project.activity || []).slice(-50) });
 });
 
 app.post('/api/projects', (req, res) => {
@@ -197,7 +228,9 @@ app.post('/api/projects', (req, res) => {
     createdAt: Date.now(),
     doc: '',
     chat: [],
+    activity: [],
   };
+  recordActivity(project, founder, 'created', `Project created by ${founder}`);
   data.projects.unshift(project);
   scheduleSave();
   res.status(201).json(publicProject(project));
@@ -247,7 +280,9 @@ app.post('/api/projects/adopt', (req, res) => {
       '',
     ].join('\n'),
     chat: [],
+    activity: [],
   };
+  recordActivity(project, handle, 'adopted', `Repo adopted by ${handle}`);
   data.projects.unshift(project);
   scheduleSave();
   res.status(201).json(publicProject(project));
@@ -262,6 +297,7 @@ app.post('/api/projects/:id/upvote', (req, res) => {
     return res.status(409).json({ error: 'Already upvoted', upvotes: project.upvoters.length });
   }
   project.upvoters.push(handle);
+  recordActivity(project, handle, 'upvote', `Upvoted by ${handle}`);
   scheduleSave();
   res.json({ ok: true, upvotes: project.upvoters.length });
 });
@@ -432,6 +468,7 @@ wss.on('connection', (ws) => {
         project: publicProject(project),
         doc: project.doc,
         chat: project.chat.slice(-MAX_CHAT_HISTORY),
+        activity: (project.activity || []).slice(-50),
         members: roomMembers(project.id),
       });
       broadcast(project.id, { type: 'presence', members: roomMembers(project.id) }, ws);
@@ -444,6 +481,7 @@ wss.on('connection', (ws) => {
     if (msg.type === 'doc') {
       const text = typeof msg.text === 'string' ? msg.text.slice(0, MAX_DOC) : '';
       project.doc = text;
+      recordActivity(project, ws.handle, 'doc', `Document updated by ${ws.handle} (${text.length} characters)`);
       scheduleSave();
       broadcast(project.id, { type: 'doc', text, from: ws.handle }, ws);
       return;
@@ -454,6 +492,7 @@ wss.on('connection', (ws) => {
       if (!text) return;
       const entry = { from: ws.handle, text, ts: Date.now() };
       pushChat(project, entry);
+      recordActivity(project, ws.handle, 'chat', `Chat message by ${ws.handle}`);
       broadcast(project.id, { type: 'chat', ...entry });
       return;
     }
@@ -464,6 +503,7 @@ wss.on('connection', (ws) => {
       // Echo the user's @ai message into the room chat first.
       const userEntry = { from: ws.handle, text: `@ai ${prompt}`.slice(0, MAX_CHAT), ts: Date.now() };
       pushChat(project, userEntry);
+      recordActivity(project, ws.handle, 'ai_request', `AI request by ${ws.handle}`);
       broadcast(project.id, { type: 'chat', ...userEntry });
       handleAiRequest(ws, project, prompt, msg.settings || {});
       return;
@@ -595,6 +635,7 @@ async function handleAiRequest(ws, project, prompt, settings) {
   }
   const entry = { from: 'AI', text: String(reply).slice(0, 8000), ts: Date.now() };
   pushChat(project, entry);
+  recordActivity(project, 'AI', 'ai_reply', 'AI reply posted to the room');
   broadcast(project.id, { type: 'chat', ...entry });
 }
 
