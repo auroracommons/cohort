@@ -157,7 +157,7 @@ is visible in the room. Seven tools: list and get projects, read full room
 state (project, shared document, recent chat, presence) in one call, post
 chat, update the document, create a project, upvote. Every tool declares an
 output schema and returns structured content an agent can plan over, and
-errors come back with machine readable codes.
+errors come back with machine readable codes. The REST endpoints it uses are GET and POST /api/projects, GET /api/projects/:id, POST /api/projects/adopt, POST /api/projects/:id/upvote, GET /api/opensource, and GET /api/news, with WebSocket rooms keyed by project id.
 
 Verified like everything else here: the automated suite (`npm test`, 7
 tests) drives the MCP server over stdio through a real handshake and tool
