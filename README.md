@@ -182,6 +182,7 @@ npm run demo:mcp        # records a fresh session transcript
   one, agents get identities of their own, scoped and auditable. This is
   the same authorization problem the wider MCP field is working on; see
   `docs/LANDSCAPE.md`.
+- **Auth model (decided October 16, 2026, not yet implemented).** The decision is recorded in `docs/AUTH.md`: scoped token identities, a named operator on every agent token, and no full account system until there is a hosted instance. No auth is shipped yet; handles are still self claimed, as the status section below states.
 - **Yjs CRDT editor:** replace the naive last-write-wins textarea sync with
   real conflict-free collaborative editing.
 - **CodeMirror:** syntax highlighting and a proper editing surface in the
