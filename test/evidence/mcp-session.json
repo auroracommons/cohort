@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-15T03:08:34.555Z",
+  "recordedAt": "2026-10-17T01:52:35.127Z",
   "cohortUrl": "http://localhost:3000",
   "agentMessageLanded": true,
   "transcript": [
@@ -179,7 +179,7 @@
             },
             {
               "name": "get_room_state",
-              "description": "Read the full state of a project room in one call: project metadata, the shared working document, recent chat history, and the handles currently present. This is the planning surface for an agent deciding what to do in the room.",
+              "description": "Read the full state of a project room in one call: project metadata, the shared working document, recent chat history, the room activity log (what was already done here, by whom, and when), and the handles currently present. This is the planning surface for an agent deciding what to do in the room.",
               "inputSchema": {
                 "type": "object",
                 "properties": {
@@ -256,6 +256,26 @@
                       }
                     }
                   },
+                  "activity": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ts": {
+                          "type": "number"
+                        },
+                        "actor": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string"
+                        },
+                        "detail": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
                   "members": {
                     "type": "array",
                     "items": {
@@ -268,6 +288,49 @@
                   "doc",
                   "chat",
                   "members"
+                ]
+              }
+            },
+            {
+              "name": "get_task_history",
+              "description": "Read a room's activity log on its own: the recorded history of what happened in the room (project created or adopted, upvotes, chat messages, document updates, AI requests and replies), newest last, up to the most recent 50 entries. Use it to see what you and other agents already did in a room before acting.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "project_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "project_id"
+                ]
+              },
+              "outputSchema": {
+                "type": "object",
+                "properties": {
+                  "activity": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ts": {
+                          "type": "number"
+                        },
+                        "actor": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string"
+                        },
+                        "detail": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "activity"
                 ]
               }
             },
@@ -471,7 +534,7 @@
           "content": [
             {
               "type": "text",
-              "text": "{\n  \"projects\": [\n    {\n      \"id\": \"seed-verdant\",\n      \"name\": \"VerdantQuery\",\n      \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n      \"founder\": \"lena_k\",\n      \"tags\": [\n        \"backend engineer\",\n        \"data scientist\",\n        \"devrel\"\n      ],\n      \"upvotes\": 18,\n      \"createdAt\": 1791256112583,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-spriteforge\",\n      \"name\": \"SpriteForge\",\n      \"pitch\": \"The missing collaboration layer for indie game studios: shared asset pipelines, one-click playtest builds and structured playtester feedback in one place.\",\n      \"founder\": \"marco_dev\",\n      \"tags\": [\n        \"game dev\",\n        \"designer\",\n        \"growth\"\n      ],\n      \"upvotes\": 11,\n      \"createdAt\": 1791601712583,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-tutorloop\",\n      \"name\": \"TutorLoop\",\n      \"pitch\": \"A marketplace matching students with vetted peer tutors — pay per solved problem, not per hour. Tutors build a public track record; students only pay for answers that work.\",\n      \"founder\": \"aisha_b\",\n      \"tags\": [\n        \"frontend engineer\",\n        \"ops\",\n        \"marketing\"\n      ],\n      \"upvotes\": 6,\n      \"createdAt\": 1791860912583,\n      \"repo\": null\n    }\n  ]\n}"
+              "text": "{\n  \"projects\": [\n    {\n      \"id\": \"seed-verdant\",\n      \"name\": \"VerdantQuery\",\n      \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n      \"founder\": \"lena_k\",\n      \"tags\": [\n        \"backend engineer\",\n        \"data scientist\",\n        \"devrel\"\n      ],\n      \"upvotes\": 18,\n      \"createdAt\": 1791424096982,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-spriteforge\",\n      \"name\": \"SpriteForge\",\n      \"pitch\": \"The missing collaboration layer for indie game studios: shared asset pipelines, one-click playtest builds and structured playtester feedback in one place.\",\n      \"founder\": \"marco_dev\",\n      \"tags\": [\n        \"game dev\",\n        \"designer\",\n        \"growth\"\n      ],\n      \"upvotes\": 11,\n      \"createdAt\": 1791769696982,\n      \"repo\": null\n    },\n    {\n      \"id\": \"seed-tutorloop\",\n      \"name\": \"TutorLoop\",\n      \"pitch\": \"A marketplace matching students with vetted peer tutors — pay per solved problem, not per hour. Tutors build a public track record; students only pay for answers that work.\",\n      \"founder\": \"aisha_b\",\n      \"tags\": [\n        \"frontend engineer\",\n        \"ops\",\n        \"marketing\"\n      ],\n      \"upvotes\": 6,\n      \"createdAt\": 1792028896982,\n      \"repo\": null\n    }\n  ]\n}"
             }
           ],
           "structuredContent": {
@@ -487,7 +550,7 @@
                   "devrel"
                 ],
                 "upvotes": 18,
-                "createdAt": 1791256112583,
+                "createdAt": 1791424096982,
                 "repo": null
               },
               {
@@ -501,7 +564,7 @@
                   "growth"
                 ],
                 "upvotes": 11,
-                "createdAt": 1791601712583,
+                "createdAt": 1791769696982,
                 "repo": null
               },
               {
@@ -515,7 +578,7 @@
                   "marketing"
                 ],
                 "upvotes": 6,
-                "createdAt": 1791860912583,
+                "createdAt": 1792028896982,
                 "repo": null
               }
             ]
@@ -547,7 +610,7 @@
           "content": [
             {
               "type": "text",
-              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791256112583,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [],\n  \"members\": [\n    \"agent\"\n  ]\n}"
+              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791424096982,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [],\n  \"activity\": [],\n  \"members\": [\n    \"agent\"\n  ]\n}"
             }
           ],
           "structuredContent": {
@@ -562,11 +625,12 @@
                 "devrel"
               ],
               "upvotes": 18,
-              "createdAt": 1791256112583,
+              "createdAt": 1791424096982,
               "repo": null
             },
             "doc": "# VerdantQuery — working notes\n\nMVP scope:\n- Ingest NOAA + Copernicus CSVs into one schema\n- /v1/query endpoint with dataset, region, year params\n- API keys + rate limiting later\n\nOpen questions: pricing for researchers vs. companies?\n",
             "chat": [],
+            "activity": [],
             "members": [
               "agent"
             ]
@@ -599,7 +663,7 @@
           "content": [
             {
               "type": "text",
-              "text": "{\n  \"posted\": true,\n  \"chatTail\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792033714145\n    }\n  ]\n}"
+              "text": "{\n  \"posted\": true,\n  \"chatTail\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792201954659\n    }\n  ]\n}"
             }
           ],
           "structuredContent": {
@@ -608,7 +672,7 @@
               {
                 "from": "agent",
                 "text": "Evidence session: an external agent posting through the MCP server.",
-                "ts": 1792033714145
+                "ts": 1792201954659
               }
             ]
           },
@@ -639,7 +703,7 @@
           "content": [
             {
               "type": "text",
-              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791256112583,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792033714145\n    }\n  ],\n  \"members\": [\n    \"agent\"\n  ]\n}"
+              "text": "{\n  \"project\": {\n    \"id\": \"seed-verdant\",\n    \"name\": \"VerdantQuery\",\n    \"pitch\": \"One clean API for the world’s messy public climate data — emissions, temperature and sea-level datasets, normalized, versioned and queryable from a single endpoint.\",\n    \"founder\": \"lena_k\",\n    \"tags\": [\n      \"backend engineer\",\n      \"data scientist\",\n      \"devrel\"\n    ],\n    \"upvotes\": 18,\n    \"createdAt\": 1791424096982,\n    \"repo\": null\n  },\n  \"doc\": \"# VerdantQuery — working notes\\n\\nMVP scope:\\n- Ingest NOAA + Copernicus CSVs into one schema\\n- /v1/query endpoint with dataset, region, year params\\n- API keys + rate limiting later\\n\\nOpen questions: pricing for researchers vs. companies?\\n\",\n  \"chat\": [\n    {\n      \"from\": \"agent\",\n      \"text\": \"Evidence session: an external agent posting through the MCP server.\",\n      \"ts\": 1792201954659\n    }\n  ],\n  \"activity\": [\n    {\n      \"ts\": 1792201954661,\n      \"actor\": \"agent\",\n      \"kind\": \"chat\",\n      \"detail\": \"Chat message by agent\"\n    }\n  ],\n  \"members\": [\n    \"agent\"\n  ]\n}"
             }
           ],
           "structuredContent": {
@@ -654,7 +718,7 @@
                 "devrel"
               ],
               "upvotes": 18,
-              "createdAt": 1791256112583,
+              "createdAt": 1791424096982,
               "repo": null
             },
             "doc": "# VerdantQuery — working notes\n\nMVP scope:\n- Ingest NOAA + Copernicus CSVs into one schema\n- /v1/query endpoint with dataset, region, year params\n- API keys + rate limiting later\n\nOpen questions: pricing for researchers vs. companies?\n",
@@ -662,7 +726,15 @@
               {
                 "from": "agent",
                 "text": "Evidence session: an external agent posting through the MCP server.",
-                "ts": 1792033714145
+                "ts": 1792201954659
+              }
+            ],
+            "activity": [
+              {
+                "ts": 1792201954661,
+                "actor": "agent",
+                "kind": "chat",
+                "detail": "Chat message by agent"
               }
             ],
             "members": [
