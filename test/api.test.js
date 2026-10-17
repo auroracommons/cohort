@@ -99,6 +99,8 @@ test('GET /api/projects returns the seeded board without room internals', async 
   assert.equal(res.status, 200);
   const projects = await res.json();
   assert.ok(Array.isArray(projects) && projects.length >= 3, 'seed projects present');
+  const seeded = projects.filter((proj) => proj.id.startsWith('seed-'));
+  assert.ok(seeded.length >= 3 && seeded.every((proj) => proj.demo === true), 'seeded projects are flagged as demo data');
   const p = projects[0];
   for (const field of ['id', 'name', 'pitch', 'founder', 'tags', 'upvotes']) {
     assert.ok(field in p, `public project has ${field}`);
@@ -132,6 +134,7 @@ test('POST /api/projects creates a project that can be fetched', async () => {
   assert.equal(res.status, 201);
   const created = await res.json();
   assert.ok(created.id);
+  assert.equal(created.demo, false, 'a project created by a user is not flagged as demo data');
   const check = await fetch(`${BASE}/api/projects/${created.id}`);
   assert.equal(check.status, 200);
   assert.equal((await check.json()).name, 'Test Project');
@@ -229,6 +232,10 @@ test('MCP server: handshake, tool list with output schemas, and real tool calls'
     const projects = await call('tools/call', { name: 'list_projects', arguments: {} });
     assert.equal(projects.result.isError, false);
     assert.ok(projects.result.structuredContent.projects.length >= 3);
+    assert.ok(
+      projects.result.structuredContent.projects.filter((proj) => proj.id.startsWith('seed-')).every((proj) => proj.demo === true),
+      'seeded projects carry the demo flag through the MCP tools'
+    );
 
     const state = await call('tools/call', { name: 'get_room_state', arguments: { project_id: 'seed-verdant' } });
     assert.equal(state.result.isError, false);

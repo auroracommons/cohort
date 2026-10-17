@@ -125,7 +125,12 @@ node server.js
 Then open [http://localhost:3000](http://localhost:3000).
 
 State lives in a single `data.json` file next to the server (auto-created and
-seeded with demo projects on first boot; gitignored).
+seeded with demo projects on first boot; gitignored). The seeded demo
+projects are VerdantQuery, SpriteForge and TutorLoop: demonstration examples
+with demo founders and demo backing, not real teams or real participation.
+Everywhere they appear (the board, the leaderboard, a project workspace,
+and the API and MCP project data, which carry a `demo` flag for them) they
+are labeled as demo.
 
 ### Architecture
 

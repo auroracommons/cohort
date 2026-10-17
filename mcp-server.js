@@ -101,6 +101,7 @@ const projectSchema = {
     founder: { type: 'string' }, tags: { type: 'array', items: { type: 'string' } },
     upvotes: { type: 'number' }, createdAt: { type: 'number' },
     repo: { type: ['string', 'null'] },
+    demo: { type: 'boolean', description: 'True for seeded demonstration projects (demo founders, demo backing and demo room notes), not real teams or real participation.' },
   },
   required: ['id', 'name', 'pitch', 'founder', 'upvotes'],
 };
@@ -108,7 +109,7 @@ const projectSchema = {
 const TOOLS = [
   {
     name: 'list_projects',
-    description: 'List every project on the Cohort board, most upvoted context included. Use this to discover room ids before calling room tools.',
+    description: 'List every project on the Cohort board, most upvoted context included. Projects with demo=true are seeded demonstration data, not real teams or real participation. Use this to discover room ids before calling room tools.',
     inputSchema: { type: 'object', properties: {} },
     outputSchema: { type: 'object', properties: { projects: { type: 'array', items: projectSchema } }, required: ['projects'] },
     handler: async () => ({ projects: await rest('GET', '/api/projects') }),

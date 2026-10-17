@@ -26,6 +26,9 @@
     document.title = `${project.name} — Cohort`;
     document.getElementById('ws-name').textContent = project.name;
     document.getElementById('ws-founder').textContent = `founded by @${project.founder}`;
+    const demoBox = document.getElementById('ws-demo');
+    demoBox.replaceChildren();
+    if (project.demo) demoBox.appendChild(el('span', 'demo-badge', 'Demo — seeded example, not a real team'));
     document.getElementById('ws-pitch').textContent = project.pitch;
     const tags = document.getElementById('ws-tags');
     tags.replaceChildren();

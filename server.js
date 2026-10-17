@@ -174,6 +174,11 @@ function publicProject(p) {
     upvotes: p.upvoters.length,
     createdAt: p.createdAt,
     repo: p.repo || null,
+    // Seeded projects (seed-*) are demonstration data: demo founders,
+    // demo backing (demo_backer_* upvoters) and demo room notes, not
+    // real teams or real participation. Every public surface labels
+    // them from this flag so they cannot be mistaken for real projects.
+    demo: typeof p.id === 'string' && p.id.startsWith('seed-'),
   };
 }
 

@@ -277,6 +277,17 @@ a:hover { text-decoration: underline; }
   border: 1px solid hsla(243, 80%, 66%, 0.25);
 }
 
+.demo-badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  background: hsla(43, 85%, 58%, 0.12);
+  padding: 2px 9px;
+  border-radius: 0;
+  border: 1px solid hsla(43, 85%, 58%, 0.4);
+}
+
 .card-actions {
   display: flex;
   align-items: center;

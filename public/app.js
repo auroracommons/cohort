@@ -88,6 +88,7 @@
     for (const p of projects) {
       const card = el('div', 'project-card');
       card.appendChild(el('h3', null, p.name));
+      if (p.demo) card.appendChild(el('span', 'demo-badge', 'Demo — seeded example, not a real team'));
       card.appendChild(el('p', 'project-pitch', p.pitch));
       card.appendChild(el('p', 'project-founder', `founded by @${p.founder}`));
 
@@ -135,6 +136,7 @@
       link.href = `/p/${encodeURIComponent(p.id)}`;
       title.appendChild(link);
       info.appendChild(title);
+      if (p.demo) info.appendChild(el('span', 'demo-badge', 'Demo — seeded example, not a real team'));
       info.appendChild(el('p', null, p.pitch));
       row.appendChild(info);
       row.appendChild(el('span', 'board-votes', `▲ ${p.upvotes}`));
